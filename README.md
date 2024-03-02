@@ -1,2 +1,2 @@
-# piScan-Frontend
-React frontend for piScan system
+# piScanUI
+React app for piScan system
