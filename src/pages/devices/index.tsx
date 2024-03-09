@@ -1,10 +1,8 @@
-import { config } from '../../config'
-import useFetch from '../../hooks/fetch/core/useFetch'
-import Device from '../../types/device'
+import useFetchDevices from '../../hooks/fetch/useFetchDevices'
 import classes from './index.module.css'
 
 export default function Devices() {
-    const {isLoading, isError, data: devices} = useFetch<Device[]>(`${config.API_URL}/devices`)
+    const {isLoading, isError, data: devices} = useFetchDevices()
 
     return (
         <div className={classes.wrapper}>
