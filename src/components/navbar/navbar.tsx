@@ -9,14 +9,14 @@ export default function Navbar() {
 
     return (
         <div className={classes.wrapper}>
+            <div className={classes.icon}>
+                <PrinterIcon />
+            </div>
             <div className={classes.icon} onClick={
                 () => {
                     navigate('/')
                 }}>
                 <HomeIcon />
-            </div>
-            <div className={classes.icon}>
-                <PrinterIcon />
             </div>
             <div className={classes.icon}>
                 <ScanIcon />
