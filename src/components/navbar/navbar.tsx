@@ -3,24 +3,39 @@ import HomeIcon from '../../icons/home'
 import PrinterIcon from '../../icons/printer'
 import ScanIcon from '../../icons/scan'
 import classes from './navbar.module.css'
+import clsx from '../../utils/clsx';
+
+const actions = [
+    {
+        location: "/devices",
+        icon: <PrinterIcon />
+    },
+    {
+        location: "/",
+        icon: <HomeIcon />
+    },
+    {
+        location: "/scan",
+        icon: <ScanIcon />
+    }
+]
 
 export default function Navbar() {
-    const [_location, navigate] = useLocation();
+    const [location, navigate] = useLocation();
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.icon}>
-                <PrinterIcon />
-            </div>
-            <div className={classes.icon} onClick={
-                () => {
-                    navigate('/')
-                }}>
-                <HomeIcon />
-            </div>
-            <div className={classes.icon}>
-                <ScanIcon />
-            </div>
+            {actions.map((action, index) => {
+                return (
+                    <div key={index}
+                        className={clsx(classes.icon, location === action.location && classes.active)}
+                        onClick={
+                            () => {
+                                navigate(action.location)
+                            }}>
+                        {action.icon}
+                    </div>)
+            })}
         </div>
     )
 }

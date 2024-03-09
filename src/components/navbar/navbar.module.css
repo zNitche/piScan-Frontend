@@ -11,5 +11,10 @@
 }
 
 .icon svg path {
+    transition: fill .3s ease;
     fill: var(--font-light);
+}
+
+.active svg path {
+    fill: var(--icon-active);
 }
