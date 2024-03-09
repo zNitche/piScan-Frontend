@@ -1,6 +1,7 @@
 .wrapper {
-    color: var(--font);
+    color: var(--font-dark);
     display: flex;
     align-items: center;
     gap: 15px;
+    font-size: var(--font-md);
 }

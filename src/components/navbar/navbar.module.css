@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    background-color: var(--navabr-background);
+    padding: 16px;
+    justify-content: space-evenly;
+}
+
+.icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.icon svg path {
+    fill: var(--font-light);
+}
