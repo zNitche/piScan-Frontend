@@ -4,6 +4,9 @@
     --font-dark: #212636;
     --icon-active: #635bff;
 
+    --loader-inner: #dddddd;
+    --loader-outer: var(--icon-active);
+
     --font-sm: 1.4rem;
     --font-md: 1.6rem;
     --font-xl: 2rem;
