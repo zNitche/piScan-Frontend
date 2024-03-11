@@ -1,2 +1,6 @@
 .git
+.env.template
 node_modules
+.eslintrc.json
+.eslintignore
+.prettierrc
