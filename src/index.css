@@ -1,5 +1,7 @@
 :root {
-    --navabr-background: #24292e;
+    --background: #24292e;
+    --background2: #3a4550;
+    --background2-active: #556370;
     --font-light: #fff;
     --font-dark: #212636;
     --icon-active: #635bff;
@@ -27,14 +29,17 @@ body {
     color: var(--font-light);
 }
 
-.header-wrapper {
-    background-color: var(--navabr-background);
-    padding: 16px;
-    font-size: var(--font-xl);
-}
-
 .content-wrapper {
+    width: 100%;
     height: 100%;
+    overflow-y: scroll;
+    padding: 16px;
     font-size: var(--font-md);
     color: var(--font-dark);
+}
+
+@media (min-width: 1200px) {
+    .content-wrapper {
+        padding: 16px 20%;
+    }
 }

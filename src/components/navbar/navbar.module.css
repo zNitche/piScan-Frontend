@@ -1,8 +1,14 @@
 .wrapper {
     display: flex;
-    background-color: var(--navabr-background);
+    background-color: var(--background);
     padding: 16px;
-    justify-content: space-evenly;
+    justify-content: center;
+}
+
+.icons-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 .icon svg {
@@ -17,4 +23,10 @@
 
 .active svg path {
     fill: var(--icon-active);
+}
+
+@media (min-width: 576px) {
+    .icons-wrapper {
+        width: 500px;
+    }
 }

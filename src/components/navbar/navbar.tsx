@@ -25,22 +25,24 @@ export default function Navbar() {
 
 	return (
 		<div className={classes.wrapper}>
-			{actions.map((action, index) => {
-				return (
-					<div
-						key={index}
-						className={clsx(
-							classes.icon,
-							location === action.location && classes.active,
-						)}
-						onClick={() => {
-							navigate(action.location);
-						}}
-					>
-						{action.icon}
-					</div>
-				);
-			})}
+			<div className={classes["icons-wrapper"]}>
+				{actions.map((action, index) => {
+					return (
+						<div
+							key={index}
+							className={clsx(
+								classes.icon,
+								location === action.location && classes.active,
+							)}
+							onClick={() => {
+								navigate(action.location);
+							}}
+						>
+							{action.icon}
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }
