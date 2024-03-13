@@ -1,4 +1,7 @@
 :root {
+
+    --black: #000;
+    --divider: #a0afbd;
     --background: #24292e;
     --background2: #3a4550;
     --background2-active: #556370;
@@ -36,6 +39,13 @@ body {
     padding: 16px;
     font-size: var(--font-md);
     color: var(--font-dark);
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.content-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 @media (min-width: 1200px) {
