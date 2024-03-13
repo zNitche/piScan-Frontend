@@ -1,0 +1,45 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.loader-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.device-card-wrapper {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.devices-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.error {
+    display: flex;
+    width: 100;
+    color: var(--font-dark);
+    font-size: var(--font-xl);
+    font-weight: 500;
+    text-transform: capitalize;
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .device-card-wrapper {
+        width: 100%;
+    }
+
+    .devices-cards {
+        flex-direction: column;
+    }
+}
