@@ -1,0 +1,11 @@
+.header-wrapper {
+    background-color: var(--background);
+    padding: 16px;
+    font-size: var(--font-xl);
+}
+
+@media (min-width: 1200px) {
+    .header-wrapper {
+        padding: 16px 20%;
+    }
+}

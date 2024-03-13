@@ -1,10 +1,11 @@
+import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import Router from "./router";
 
 function App() {
 	return (
 		<div className="main-wrapper">
-			<div className="header-wrapper">piScan</div>
+			<Header />
 			<div className="content-wrapper">
 				<Router />
 			</div>
