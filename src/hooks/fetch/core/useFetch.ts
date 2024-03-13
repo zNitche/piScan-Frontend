@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 interface useFetchResults<T> {
 	isLoading: boolean;
 	isError: boolean;
+	refetch: () => void;
 	data: T | undefined;
 }
 
@@ -34,5 +35,5 @@ export default function useFetch<T>(url: string): useFetchResults<T> {
 		void fetchData();
 	}, []);
 
-	return { isLoading, isError, data };
+	return { isLoading, isError, refetch: fetchData, data };
 }

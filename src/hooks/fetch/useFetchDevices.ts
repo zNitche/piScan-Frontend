@@ -5,13 +5,14 @@ import useFetch from "./core/useFetch";
 interface useFetchDevicesResults {
 	isLoading: boolean;
 	isError: boolean;
+	refetch: () => void;
 	data: Device[] | [];
 }
 
 export default function useFetchDevices(): useFetchDevicesResults {
-	const { isLoading, isError, data } = useFetch<Device[]>(
+	const { isLoading, isError, refetch, data } = useFetch<Device[]>(
 		`${config.API_URL}/devices`,
 	);
 
-	return { isLoading, isError, data: data ? data : [] };
+	return { isLoading, isError, refetch, data: data ? data : [] };
 }
