@@ -15,6 +15,7 @@ import AddIcon from "../../../icons/add";
 import usePostNewDevices from "../../../hooks/fetch/use_post_new_device";
 import ConnectedDevice from "../../../types/devices/connected_device";
 import clsx from "../../../utils/clsx";
+import useNotifications from "../../../hooks/use_notifications";
 
 interface AddDeviceModalProps {
 	isOpen: boolean;
@@ -27,6 +28,8 @@ export default function AddDeviceModal({
 	setIsOpen,
 	refetchDevices,
 }: AddDeviceModalProps) {
+	const { addSuccessNotification, addErrorNotification } = useNotifications();
+
 	const { isLoading, isError, data, refetch } = useFetchConnectedDevices();
 	const {
 		isLoading: addingDevice,
@@ -48,9 +51,12 @@ export default function AddDeviceModal({
 					device_id: device.device_id,
 				});
 
-				if (res.success) {
+				if (res.success && !addingDeviceError) {
+					addSuccessNotification("Successfully added new device");
 					void refetchDevices?.();
 					setIsOpen(false);
+				} else {
+					addErrorNotification("Error while adding new device");
 				}
 			}
 		},
