@@ -1,11 +1,11 @@
-import Device from "../../types/device";
+import Device from "../../types/devices/device";
 import { config } from "../../config";
-import useFetch from "./core/useFetch";
+import useFetch from "./core/use_fetch";
 
 interface useFetchDevicesResults {
 	isLoading: boolean;
 	isError: boolean;
-	refetch: () => void;
+	refetch: () => Promise<void>;
 	data: Device[] | [];
 }
 
