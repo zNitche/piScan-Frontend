@@ -1,0 +1,41 @@
+.notification-snackbar {
+    color: var(--font-light);
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    font-size: var(--font-md);
+    background-color: var(--background2);
+    border-radius: 5px;
+    max-width: 300px;
+    width: 300px;
+    align-items: center;
+}
+
+.actions {
+    margin-left: auto;
+}
+
+.close {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    cursor: pointer;
+    fill: var(--font-light);
+}
+
+.success-notification {
+    background-color: var(--background-success-color);
+}
+
+.error-notification {
+    background-color: var(--background-error-color);
+}
+
+@media (max-width: 576px) {
+    .notification-snackbar  {
+        width: 95%;
+        max-width: 95%;
+    }
+}

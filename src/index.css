@@ -8,6 +8,8 @@
     --font-light: #fff;
     --font-dark: #212636;
     --icon-active: #635bff;
+    --background-success-color: #198754;
+    --background-error-color: #dc3545;
 
     --loader-inner: #dddddd;
     --loader-outer: var(--icon-active);
@@ -16,6 +18,8 @@
     --font-md: 1.6rem;
     --font-xl: 2rem;
     --font-xxl: 2.4rem;
+
+    --navbar-height: 66px;
 }
 
 html,
@@ -23,6 +27,8 @@ body {
     margin: 0;
     padding: 0;
     font-size: 10px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .main-wrapper {
@@ -46,6 +52,28 @@ body {
 .content-wrapper::-webkit-scrollbar {
     display: none;
 }
+
+.notifications-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-right: 10px;
+    margin-bottom: calc(var(--navbar-height) + 10px);
+    z-index: 500;
+}
+
+@media (max-width: 576px) {
+    .notifications-wrapper {
+        right: unset;
+        width: 100%;
+        align-items: center;
+        margin-right: 0;
+    }
+}
+
 
 @media (min-width: 1200px) {
     .content-wrapper {
