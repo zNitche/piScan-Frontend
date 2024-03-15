@@ -1,4 +1,4 @@
-import ScanFormat from "./scan_format";
+import ScanFormat from "../scan_format";
 
 interface Device {
 	uuid: string;

@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, PropsWithChildren, SetStateAction } from "react";
 import classes from "./modal.module.css";
 import CloseIcon from "../../../icons/close";
 
@@ -6,15 +6,14 @@ interface ModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	title: string;
-	content: ReactNode;
 }
 
 export default function Modal({
 	isOpen,
 	setIsOpen,
 	title,
-	content,
-}: ModalProps) {
+	children,
+}: PropsWithChildren<ModalProps>) {
 	return (
 		isOpen && (
 			<div className={classes["modal-wrapper"]}>
@@ -28,7 +27,7 @@ export default function Modal({
 							}}
 						/>
 					</div>
-					<div className={classes.content}>{content}</div>
+					<div className={classes.content}>{children}</div>
 				</div>
 				<div
 					className={classes.overlay}

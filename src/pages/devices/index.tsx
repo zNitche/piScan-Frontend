@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import useFetchDevices from "../../hooks/fetch/useFetchDevices";
+import useFetchDevices from "../../hooks/fetch/use_fetch_devices";
 import classes from "./index.module.css";
 import DeviceCard from "../../components/device_card/device_card";
 import Loader from "../../components/loader/loader";
@@ -8,7 +8,7 @@ import AddDeviceModal from "../../components/modals/add_device_modal/add_device_
 
 export default function Devices() {
 	const [isAddDeviceModalOpen, setIsAddDeviceModalOpen] = useState(false);
-	const { isLoading, isError, data: devices } = useFetchDevices();
+	const { isLoading, isError, data: devices, refetch } = useFetchDevices();
 
 	const cards = useMemo(() => {
 		return devices?.map((device) => {
@@ -31,6 +31,7 @@ export default function Devices() {
 			<AddDeviceModal
 				isOpen={isAddDeviceModalOpen}
 				setIsOpen={setIsAddDeviceModalOpen}
+				refetchDevices={refetch}
 			/>
 			<div className={classes.wrapper}>
 				{isError ? (
