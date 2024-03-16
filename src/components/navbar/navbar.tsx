@@ -1,9 +1,9 @@
 import { useLocation } from "wouter";
-import HomeIcon from "../../icons/home";
-import PrinterIcon from "../../icons/printer";
-import ScanIcon from "../../icons/scan";
 import classes from "./navbar.module.css";
-import clsx from "../../utils/clsx";
+import HomeIcon from "@/icons/home";
+import PrinterIcon from "@/icons/printer";
+import ScanIcon from "@/icons/scan";
+import clsx from "@/utils/clsx";
 
 const actions = [
 	{

@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
-import useFetchDevices from "../../hooks/fetch/use_fetch_devices";
 import classes from "./index.module.css";
-import DeviceCard from "../../components/device_card/device_card";
-import Loader from "../../components/loader/loader";
-import AddDeviceCard from "../../components/add_device_card/add_device_card";
-import AddDeviceModal from "../../components/modals/add_device_modal/add_device_modal";
+import AddDeviceCard from "@/components/add_device_card/add_device_card";
+import DeviceCard from "@/components/device_card/device_card";
+import Loader from "@/components/loader/loader";
+import AddDeviceModal from "@/components/modals/add_device_modal/add_device_modal";
+import useFetchDevices from "@/hooks/fetch/use_fetch_devices";
 
 export default function Devices() {
 	const [isAddDeviceModalOpen, setIsAddDeviceModalOpen] = useState(false);

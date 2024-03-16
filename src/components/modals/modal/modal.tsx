@@ -1,6 +1,6 @@
 import { Dispatch, PropsWithChildren, SetStateAction } from "react";
 import classes from "./modal.module.css";
-import CloseIcon from "../../../icons/close";
+import CloseIcon from "@/icons/close";
 
 interface ModalProps {
 	isOpen: boolean;

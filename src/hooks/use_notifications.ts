@@ -1,6 +1,6 @@
+import { NotificationsContext } from "@/context";
+import NotificationTypeEnum from "@/types/enums/notifications_type_enum";
 import { useCallback, useContext } from "react";
-import { NotificationsContext } from "../context";
-import NotificationTypeEnum from "../types/enums/notifications_type_enum";
 
 interface useNotificationsResults {
 	addSuccessNotification: (text: string, expiration?: number) => void;

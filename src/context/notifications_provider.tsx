@@ -1,8 +1,8 @@
+import NotificationSnackbar from "@/components/notification_snackbar/notification_snackbar";
+import NotificationTypeEnum from "@/types/enums/notifications_type_enum";
+import NotificationItem from "@/types/notification_item";
 import { ReactElement, useCallback, useMemo, useState } from "react";
-import NotificationItem from "../types/notification_item";
-import NotificationTypeEnum from "../types/enums/notifications_type_enum";
 import { NotificationsContext } from ".";
-import NotificationSnackbar from "../components/notification_snackbar/notification_snackbar";
 
 interface NotificationsProviderProps {
 	children: ReactElement;

@@ -1,4 +1,4 @@
-import PrinterIcon from "../../icons/printer";
+import PrinterIcon from "@/icons/printer";
 import classes from "./device_card.module.css";
 
 interface DeviceCardProps {

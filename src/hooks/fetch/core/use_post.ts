@@ -1,5 +1,5 @@
+import ApiResponse from "@/types/api/api_response";
 import { useCallback, useState } from "react";
-import ApiResponse from "../../../types/api/api_response";
 
 interface usePostResults<T, K> {
 	isLoading: boolean;

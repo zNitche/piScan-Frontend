@@ -1,6 +1,7 @@
-import Device from "../../types/devices/device";
-import { config } from "../../config";
+import Device from "@/types/devices/device";
 import useFetch from "./core/use_fetch";
+import config from "@/config";
+
 
 interface useFetchDevicesResults {
 	isLoading: boolean;

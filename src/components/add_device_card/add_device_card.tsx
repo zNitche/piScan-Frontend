@@ -1,4 +1,4 @@
-import AddIcon from "../../icons/add";
+import AddIcon from "@/icons/add";
 import classes from "./add_device_card.module.css";
 
 export default function AddDeviceCard() {

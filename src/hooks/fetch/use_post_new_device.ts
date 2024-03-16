@@ -1,8 +1,8 @@
-import { config } from "../../config";
-import usePost from "./core/use_post";
-import NewDevice from "../../types/api/new_device";
-import AddNewDeviceResponse from "../../types/api/add_new_device_response";
+import AddNewDeviceResponse from "@/types/api/add_new_device_response";
+import NewDevice from "@/types/api/new_device";
 import { useCallback } from "react";
+import usePost from "./core/use_post";
+import config from "@/config";
 
 interface usePostNewDevicesResults {
 	isLoading: boolean;

@@ -6,16 +6,16 @@ import {
 	useMemo,
 } from "react";
 import classes from "./add_device_modal.module.css";
+import Loader from "@/components/loader/loader";
+import useFetchConnectedDevices from "@/hooks/fetch/use_fetch_connected_devices";
+import usePostNewDevices from "@/hooks/fetch/use_post_new_device";
+import useNotifications from "@/hooks/use_notifications";
+import AddIcon from "@/icons/add";
+import CheckedIcon from "@/icons/checked";
+import RefreshIcon from "@/icons/refresh";
+import ConnectedDevice from "@/types/devices/connected_device";
+import clsx from "@/utils/clsx";
 import Modal from "../modal/modal";
-import useFetchConnectedDevices from "../../../hooks/fetch/use_fetch_connected_devices";
-import RefreshIcon from "../../../icons/refresh";
-import Loader from "../../loader/loader";
-import CheckedIcon from "../../../icons/checked";
-import AddIcon from "../../../icons/add";
-import usePostNewDevices from "../../../hooks/fetch/use_post_new_device";
-import ConnectedDevice from "../../../types/devices/connected_device";
-import clsx from "../../../utils/clsx";
-import useNotifications from "../../../hooks/use_notifications";
 
 interface AddDeviceModalProps {
 	isOpen: boolean;

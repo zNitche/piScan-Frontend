@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import classes from "./notification_snackbar.module.css";
-import NotificationTypeEnum from "../../types/enums/notifications_type_enum";
-import CloseIcon from "../../icons/close";
-import clsx from "../../utils/clsx";
+import CloseIcon from "@/icons/close";
+import NotificationTypeEnum from "@/types/enums/notifications_type_enum";
+import clsx from "@/utils/clsx";
 
 interface NotificationSnackbarProps {
 	message: string;

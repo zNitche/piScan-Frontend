@@ -1,4 +1,4 @@
-import clsx from "../../utils/clsx";
+import clsx from "@/utils/clsx";
 import classes from "./loader.module.css";
 
 interface LoaderProps {
