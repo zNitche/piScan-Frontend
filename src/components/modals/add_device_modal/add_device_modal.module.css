@@ -24,6 +24,12 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.devices-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .fetch-info-wrapper {

@@ -4,6 +4,7 @@ import {
 	useCallback,
 	useEffect,
 	useMemo,
+	useState,
 } from "react";
 import classes from "./add_device_modal.module.css";
 import Loader from "@/components/loader/loader";
@@ -20,14 +21,15 @@ import Modal from "../modal/modal";
 interface AddDeviceModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	refetchDevices?: () => Promise<void>;
+	onAddedDeviceCallback?: () => Promise<void>;
 }
 
 export default function AddDeviceModal({
 	isOpen,
 	setIsOpen,
-	refetchDevices,
+	onAddedDeviceCallback,
 }: AddDeviceModalProps) {
+	const [currentlyAddedDeviceId, setCurrentlyAddedDeviceId] = useState("");
 	const { addSuccessNotification, addErrorNotification } = useNotifications();
 
 	const { isLoading, isError, data, refetch } = useFetchConnectedDevices();
@@ -46,6 +48,7 @@ export default function AddDeviceModal({
 	const handleAddNewDevice = useCallback(
 		async (device: ConnectedDevice) => {
 			if (!addingDevice) {
+				setCurrentlyAddedDeviceId(device.device_id);
 				const res = await addDevice({
 					name: device.name,
 					device_id: device.device_id,
@@ -53,12 +56,14 @@ export default function AddDeviceModal({
 
 				if (res.success && !addingDeviceError) {
 					addSuccessNotification("Successfully added new device");
-					void refetchDevices?.();
+					void onAddedDeviceCallback?.();
 					setIsOpen(false);
 				} else {
 					addErrorNotification("Error while adding new device");
 				}
 			}
+
+			setCurrentlyAddedDeviceId("");
 		},
 		[addDevice, addingDevice],
 	);
@@ -80,7 +85,8 @@ export default function AddDeviceModal({
 						<div className={classes["icon-placeholder"]} />
 					)}
 					<div className={classes["device-name"]}>{device.name}</div>
-					{!device.is_added && (
+					{addingDevice && currentlyAddedDeviceId === device.device_id && <Loader variant="xs" />}
+					{device.is_added || (!addingDevice && currentlyAddedDeviceId !== device.device_id) && (
 						<AddIcon
 							className={clsx(classes.icon, classes.action)}
 							onClick={async () => {
@@ -91,7 +97,7 @@ export default function AddDeviceModal({
 				</div>
 			);
 		});
-	}, [data]);
+	}, [data, addingDevice]);
 
 	return (
 		<Modal
@@ -104,7 +110,7 @@ export default function AddDeviceModal({
 					<span className={classes["header-info"]}>
 						Connected USB devices
 					</span>
-					{!isLoading && (
+					{!isLoading && !addingDevice && (
 						<RefreshIcon
 							className={clsx(classes.icon, classes.action)}
 							onClick={refetch}
@@ -114,6 +120,11 @@ export default function AddDeviceModal({
 				{isError && (
 					<div className={classes["fetch-info-wrapper"]}>
 						Error while fetching devices...
+					</div>
+				)}
+				{!isError && !isLoading && devicesCards?.length === 0 && (
+					<div className={classes["fetch-info-wrapper"]}>
+						No connected devices detected
 					</div>
 				)}
 				{isLoading && !isError ? (

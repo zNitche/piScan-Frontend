@@ -43,7 +43,7 @@
 }
 
 .content {
-    
+    overflow: hidden;
 }
 
 .close-icon {

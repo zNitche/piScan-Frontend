@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import classes from "./index.module.css";
 import AddDeviceCard from "@/components/add_device_card/add_device_card";
 import DeviceCard from "@/components/device_card/device_card";
@@ -26,12 +26,19 @@ export default function Devices() {
 		});
 	}, [devices]);
 
+	const handleAddNewDevice = useCallback(
+		async () => {
+			await refetch();
+		},
+		[refetch],
+	);
+
 	return (
 		<>
 			<AddDeviceModal
 				isOpen={isAddDeviceModalOpen}
 				setIsOpen={setIsAddDeviceModalOpen}
-				refetchDevices={refetch}
+				onAddedDeviceCallback={handleAddNewDevice}
 			/>
 			<div className={classes.wrapper}>
 				{isError ? (
