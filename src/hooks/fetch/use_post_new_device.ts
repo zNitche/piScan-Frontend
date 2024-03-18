@@ -1,8 +1,8 @@
 import AddNewDeviceResponse from "@/types/api/add_new_device_response";
 import NewDevice from "@/types/api/new_device";
 import { useCallback } from "react";
-import usePost from "./core/use_post";
 import config from "@/config";
+import useFetch from "./core/use_fetch";
 
 interface usePostNewDevicesResults {
 	isLoading: boolean;
@@ -11,17 +11,17 @@ interface usePostNewDevicesResults {
 }
 
 export default function usePostNewDevices(): usePostNewDevicesResults {
-	const { isLoading, isError, post } = usePost<NewDevice, null>(
+	const { isLoading, isError, fetchData } = useFetch<NewDevice, null>(
 		`${config.API_URL}/devices/`,
 	);
 
 	const postData = useCallback(async (data: NewDevice) => {
-		const res = await post(data);
+		const res = await fetchData(data);
 
 		return {
 			success: res?.code === 200 || res?.code === 201,
 		};
-	}, [post]);
+	}, [fetchData]);
 
 	return {
 		isLoading,

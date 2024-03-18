@@ -1,49 +1,55 @@
-import { useCallback, useEffect, useState } from "react";
+import ApiResponse from "@/types/api/api_response";
+import { useCallback, useState } from "react";
 
-interface useFetchResults<T> {
+interface usePostResults<T, K> {
 	isLoading: boolean;
 	isError: boolean;
-	refetch: () => Promise<void>;
-	data: T | undefined;
+	fetchData: (data: T) => Promise<ApiResponse<K | null> | undefined>;
 }
 
-export default function useFetch<T>(
+export default function useFetch<T, K>(
 	url: string,
-	fetchOnMount: boolean = true,
-): useFetchResults<T> {
+	type: "POST" | "PUT" | "DELETE" = "POST",
+): usePostResults<T, K> {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
-	const [data, setData] = useState<T | undefined>(undefined);
 
-	const fetchData = useCallback(async () => {
-		if (isLoading) {
-			return;
-		}
+	const fetchData = useCallback(
+		async (data: T) => {
+			if (isLoading) {
+				return;
+			}
 
-		setIsLoading(true);
-		setIsError(false);
+			setIsLoading(true);
+			setIsError(false);
 
-		try {
-			const res = await fetch(url, {
-				method: "GET",
-				headers: [],
-			});
+			try {
+				const res = await fetch(url, {
+					method: type,
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				});
 
-			const resData = await res.json();
-			setData(resData);
-		} catch (error) {
-			console.error(`error while fetching ${url}: ${error}`);
-			setIsError(true);
-		}
+				const responseText = await res.text();
+				const resData = responseText ? JSON.parse(responseText) : null;
 
-		setIsLoading(false);
-	}, [url, isLoading]);
+				setIsLoading(false);
 
-	useEffect(() => {
-		if (fetchOnMount) {
-			void fetchData();
-		}
-	}, []);
+				return {
+					code: res.status,
+					data: resData,
+				};
+			} catch (error) {
+				console.error(`error while fetching ${url}: ${error}`);
+				setIsError(true);
+			}
 
-	return { isLoading, isError, refetch: fetchData, data };
+			setIsLoading(false);
+		},
+		[url, isLoading],
+	);
+
+	return { isLoading, isError, fetchData };
 }
