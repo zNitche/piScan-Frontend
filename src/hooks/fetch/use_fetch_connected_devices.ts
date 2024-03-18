@@ -1,6 +1,6 @@
 import ConnectedDevice from "@/types/devices/connected_device";
-import useFetch from "./core/use_fetch";
 import config from "@/config";
+import useQuery from "./core/use_query";
 
 
 interface useFetchConnectedDevicesResults {
@@ -13,7 +13,7 @@ interface useFetchConnectedDevicesResults {
 export default function useFetchConnectedDevices(
 	fetchOnMount: boolean = false,
 ): useFetchConnectedDevicesResults {
-	const { isLoading, isError, refetch, data } = useFetch<ConnectedDevice[]>(
+	const { isLoading, isError, refetch, data } = useQuery<ConnectedDevice[]>(
 		`${config.API_URL}/devices/list-connected`,
 		fetchOnMount,
 	);

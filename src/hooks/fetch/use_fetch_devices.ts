@@ -1,6 +1,6 @@
 import Device from "@/types/devices/device";
-import useFetch from "./core/use_fetch";
 import config from "@/config";
+import useQuery from "./core/use_query";
 
 
 interface useFetchDevicesResults {
@@ -11,7 +11,7 @@ interface useFetchDevicesResults {
 }
 
 export default function useFetchDevices(): useFetchDevicesResults {
-	const { isLoading, isError, refetch, data } = useFetch<Device[]>(
+	const { isLoading, isError, refetch, data } = useQuery<Device[]>(
 		`${config.API_URL}/devices`,
 	);
 
