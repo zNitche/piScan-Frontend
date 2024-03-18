@@ -2,7 +2,7 @@ import clsx from "@/utils/clsx";
 import classes from "./loader.module.css";
 
 interface LoaderProps {
-	variant?: "sm" | "md" | "xl";
+	variant?: "xs" | "sm" | "md" | "xl";
 }
 
 export default function Loader({ variant }: LoaderProps) {
