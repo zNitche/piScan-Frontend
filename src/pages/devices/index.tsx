@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import classes from "./index.module.css";
 import AddDeviceCard from "@/components/add_device_card/add_device_card";
 import DeviceCard from "@/components/device_card/device_card";
-import Loader from "@/components/loader/loader";
+import Loader from "@/components/design/loader/loader";
 import AddDeviceModal from "@/components/modals/add_device_modal/add_device_modal";
 import useFetchDevices from "@/hooks/fetch/use_fetch_devices";
 import DeviceManagementModal from "@/components/modals/device_management_modal/device_management_modal";

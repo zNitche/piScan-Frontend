@@ -6,7 +6,7 @@ import {
 	useMemo,
 } from "react";
 import classes from "./add_device_modal.module.css";
-import Loader from "@/components/loader/loader";
+import Loader from "@/components/design/loader/loader";
 import useFetchConnectedDevices from "@/hooks/fetch/use_fetch_connected_devices";
 import usePostNewDevices from "@/hooks/fetch/use_post_new_device";
 import useNotifications from "@/hooks/use_notifications";
