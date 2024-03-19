@@ -4,7 +4,6 @@ import {
 	useCallback,
 	useEffect,
 	useMemo,
-	useState,
 } from "react";
 import classes from "./add_device_modal.module.css";
 import Loader from "@/components/loader/loader";
@@ -29,7 +28,6 @@ export default function AddDeviceModal({
 	setIsOpen,
 	onAddedDeviceCallback,
 }: AddDeviceModalProps) {
-	const [currentlyAddedDeviceId, setCurrentlyAddedDeviceId] = useState("");
 	const { addSuccessNotification, addErrorNotification } = useNotifications();
 
 	const { isLoading, isError, data, refetch } = useFetchConnectedDevices();
@@ -37,6 +35,7 @@ export default function AddDeviceModal({
 		isLoading: addingDevice,
 		isError: addingDeviceError,
 		post: addDevice,
+		currentDeviceId,
 	} = usePostNewDevices();
 
 	useEffect(() => {
@@ -48,7 +47,6 @@ export default function AddDeviceModal({
 	const handleAddNewDevice = useCallback(
 		async (device: ConnectedDevice) => {
 			if (!addingDevice) {
-				setCurrentlyAddedDeviceId(device.device_id);
 				const res = await addDevice({
 					name: device.name,
 					device_id: device.device_id,
@@ -62,8 +60,6 @@ export default function AddDeviceModal({
 					addErrorNotification("Error while adding new device");
 				}
 			}
-
-			setCurrentlyAddedDeviceId("");
 		},
 		[addDevice, addingDevice],
 	);
@@ -85,15 +81,22 @@ export default function AddDeviceModal({
 						<div className={classes["icon-placeholder"]} />
 					)}
 					<div className={classes["device-name"]}>{device.name}</div>
-					{addingDevice && currentlyAddedDeviceId === device.device_id && <Loader variant="xs" />}
-					{device.is_added || (!addingDevice && currentlyAddedDeviceId !== device.device_id) && (
-						<AddIcon
-							className={clsx(classes.icon, classes.action)}
-							onClick={async () => {
-								handleAddNewDevice(device);
-							}}
-						/>
+					{addingDevice && currentDeviceId === device.device_id && (
+						<Loader variant="xs" />
 					)}
+					{device.is_added ||
+						(!addingDevice &&
+							currentDeviceId !== device.device_id && (
+							<AddIcon
+								className={clsx(
+									classes.icon,
+									classes.action,
+								)}
+								onClick={async () => {
+									handleAddNewDevice(device);
+								}}
+							/>
+						))}
 				</div>
 			);
 		});

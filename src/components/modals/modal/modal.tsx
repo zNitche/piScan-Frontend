@@ -6,12 +6,14 @@ interface ModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	title: string;
+	onCloseCallback?: () => void;
 }
 
 export default function Modal({
 	isOpen,
 	setIsOpen,
 	title,
+	onCloseCallback,
 	children,
 }: PropsWithChildren<ModalProps>) {
 	return (
@@ -24,6 +26,7 @@ export default function Modal({
 							className={classes["close-icon"]}
 							onClick={() => {
 								setIsOpen(false);
+								onCloseCallback?.();
 							}}
 						/>
 					</div>

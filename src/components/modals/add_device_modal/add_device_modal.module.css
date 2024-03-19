@@ -10,10 +10,14 @@
 
 .header-info {
     flex: 1;
+    display: flex;
+    align-items: center;
 }
 
 .icon {
     fill: var(--font-light);
+    width: 32px;
+    height: 32px;
 }
 
 .icon.action {
@@ -42,8 +46,8 @@
 
 .device-wrapper {
     display: flex;
-    gap: 3px;
-    padding: 10px 0;
+    gap: 5px;
+    padding: 5px 0;
     align-items: center;
 }
 
@@ -53,6 +57,6 @@
 }
 
 .icon-placeholder {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
 }
