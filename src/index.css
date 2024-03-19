@@ -1,5 +1,5 @@
 :root {
-
+    --white: #fff;
     --black: #000;
     --divider: #a0afbd;
     --background: #24292e;
@@ -20,6 +20,19 @@
     --font-xxl: 2.4rem;
 
     --navbar-height: 66px;
+
+    --btn-primary: #0d6efd;
+    --btn-primary-hover: #115bca;
+    --btn-primary-active: #134faa;
+    --btn-secondary: #6c757d;
+    --btn-secondary-hover: #5e666d;
+    --btn-secondary-active: #505458;
+    --btn-success: #198754;
+    --btn-success-hover: #187449;
+    --btn-success-active: #0f683e;
+    --btn-danger: #dc3545;
+    --btn-danger-hover: #bb3845;
+    --btn-danger-active: #b62231;
 }
 
 html,
@@ -37,13 +50,13 @@ body {
     height: 100vh;
     height: 100dvh;
     color: var(--font-light);
+    font-size: var(--font-md);
 }
 
 .content-wrapper {
     height: 100%;
     overflow-y: scroll;
     padding: 16px;
-    font-size: var(--font-md);
     color: var(--font-dark);
 
     -ms-overflow-style: none;

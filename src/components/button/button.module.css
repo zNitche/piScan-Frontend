@@ -1,0 +1,68 @@
+.button {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: none;
+    padding: 0.6rem 2rem;
+    font-size: var(--font-md);
+    border-radius: 10px;
+    transition: color .15s ease-in-out, 
+                background-color .15s ease-in-out, 
+                border-color .15s ease-in-out, 
+                box-shadow .15s ease-in-out;
+    color: var(--white);
+}
+
+.primary {
+    background-color: var(--btn-primary);
+}
+
+.primary:hover {
+    background-color: var(--btn-primary-hover);
+}
+
+.primary:active {
+    background-color: var(--btn-primary-active);
+}
+
+.secondary {
+    background-color: var(--btn-secondary);
+}
+
+.secondary:hover {
+    background-color: var(--btn-secondary-hover);
+}
+
+.secondary:active {
+    background-color: var(--btn-secondary-active);
+}
+
+.success {
+    background-color: var(--btn-success);
+}
+
+.success:hover {
+    background-color: var(--btn-success-hover);
+}
+
+.success:active {
+    background-color: var(--btn-success-active);
+}
+
+.danger {
+    background-color: var(--btn-danger);
+}
+
+.danger:hover {
+    background-color: var(--btn-danger-hover);
+}
+
+.danger:active {
+    background-color: var(--btn-danger-active);
+}
