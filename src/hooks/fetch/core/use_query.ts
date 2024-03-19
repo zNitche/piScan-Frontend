@@ -1,21 +1,21 @@
 import { addSearchParamsToUrl } from "@/utils/fetch";
 import { useCallback, useEffect, useState } from "react";
 
-interface useQueryResults<T> {
+interface Results<ResponseDataType> {
 	isLoading: boolean;
 	isError: boolean;
 	refetch: () => Promise<void>;
-	data: T | undefined;
+	data: ResponseDataType | undefined;
 }
 
-export default function useQuery<T>(
+export default function useQuery<ResponseDataType>(
 	url: string,
 	fetchOnMount: boolean = true,
-	searchParams?: Record<string, string | number | null | undefined>
-): useQueryResults<T> {
+	searchParams?: Record<string, string | number | null | undefined>,
+): Results<ResponseDataType> {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
-	const [data, setData] = useState<T | undefined>(undefined);
+	const [data, setData] = useState<ResponseDataType | undefined>(undefined);
 
 	const fetchData = useCallback(async () => {
 		if (isLoading) {

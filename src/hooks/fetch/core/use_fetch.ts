@@ -1,21 +1,23 @@
 import ApiResponse from "@/types/api/api_response";
 import { useCallback, useState } from "react";
 
-interface usePostResults<T, K> {
+interface Results<InputDataType, ResponseDataType> {
 	isLoading: boolean;
 	isError: boolean;
-	fetchData: (data: T) => Promise<ApiResponse<K | null> | undefined>;
+	fetchData: (
+		data: InputDataType,
+	) => Promise<ApiResponse<ResponseDataType | null> | undefined>;
 }
 
-export default function useFetch<T, K>(
+export default function useFetch<InputDataType, ResponseDataType>(
 	url: string,
 	type: "POST" | "PUT" | "DELETE" = "POST",
-): usePostResults<T, K> {
+): Results<InputDataType, ResponseDataType> {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
 
 	const fetchData = useCallback(
-		async (data: T) => {
+		async (data: InputDataType) => {
 			if (isLoading) {
 				return;
 			}

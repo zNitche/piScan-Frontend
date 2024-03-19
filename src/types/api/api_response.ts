@@ -1,6 +1,6 @@
-interface ApiResponse<T> {
+interface ApiResponse<ResponseDataType> {
 	code: number;
-	data: T | undefined;
+	data: ResponseDataType | undefined;
 }
 
 export default ApiResponse;
