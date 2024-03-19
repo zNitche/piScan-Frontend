@@ -2,7 +2,6 @@ import ConnectedDevice from "@/types/devices/connected_device";
 import config from "@/config";
 import useQuery from "./core/use_query";
 
-
 interface useFetchConnectedDevicesResults {
 	isLoading: boolean;
 	isError: boolean;
