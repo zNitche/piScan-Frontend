@@ -15,6 +15,7 @@ import useUpdateDevice from "@/hooks/fetch/use_update_device";
 import useDeleteDevice from "@/hooks/fetch/use_delete_device";
 import useNotifications from "@/hooks/use_notifications";
 import DeviceUpdate from "@/types/api/device_update";
+import ConfirmDeviceDeletionModal from "../confirm_device_deletion_modal/confirm_device_deletion_modal";
 
 interface DeviceManagementModalProps {
 	isOpen: boolean;
@@ -31,6 +32,8 @@ export default function DeviceManagementModal({
 	onDeviceRemovedCallback,
 	onDeviceUpdatedCallback,
 }: DeviceManagementModalProps) {
+	const [isDeviceDeletionModalOpen, setIsDeviceDeletionModalOpen] =
+		useState(false);
 	const [deviceAvailable, setDeviceAvailable] = useState(false);
 	const [deviceName, setDeviceName] = useState(device ? device.name : "");
 
@@ -96,52 +99,72 @@ export default function DeviceManagementModal({
 	]);
 
 	return (
-		<Modal
-			isOpen={isOpen}
-			setIsOpen={setIsOpen}
-			title="Device Management"
-		>
-			<div className={classes.wrapper}>
-				{deviceAvailable ? (
-					<div className={classes["content-wrapper"]}>
-						<TextInput
-							fullWidth
-							value={deviceName}
-							onChange={(
-								event: ChangeEvent<HTMLInputElement>,
-							) => {
-								setDeviceName(event.target.value);
-							}}
-						/>
-						<div className={classes["actions-wrapper"]}>
-							<Button
-								variant="success"
+		<>
+			<ConfirmDeviceDeletionModal
+				isOpen={isDeviceDeletionModalOpen}
+				setIsOpen={setIsDeviceDeletionModalOpen}
+				deviceName={deviceName}
+				onCancelCallback={async () => {
+					setIsDeviceDeletionModalOpen(false);
+				}}
+				onConfirmCallback={async () => {
+					setIsDeviceDeletionModalOpen(false);
+					await handleDeleteDevice();
+				}}
+			/>
+			<Modal
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				title="Device Management"
+			>
+				<div className={classes.wrapper}>
+					{deviceAvailable ? (
+						<div className={classes["content-wrapper"]}>
+							<TextInput
 								fullWidth
-								disabled={
-									!isUpdatingDevice || device ? false : true
-								}
-								onClick={handleUpdateDevice}
-							>
-								Update
-							</Button>
-							<Button
-								variant="danger"
-								fullWidth
-								disabled={
-									!isDeletingDevice || device ? false : true
-								}
-								onClick={handleDeleteDevice}
-							>
-								Remove
-							</Button>
+								value={deviceName}
+								onChange={(
+									event: ChangeEvent<HTMLInputElement>,
+								) => {
+									setDeviceName(event.target.value);
+								}}
+							/>
+							<div className={classes["actions-wrapper"]}>
+								<Button
+									variant="success"
+									fullWidth
+									disabled={
+										!isUpdatingDevice || device
+											? false
+											: true
+									}
+									onClick={handleUpdateDevice}
+								>
+									Update
+								</Button>
+								<Button
+									variant="danger"
+									fullWidth
+									disabled={
+										!isDeletingDevice || device
+											? false
+											: true
+									}
+									onClick={() => {
+										setIsDeviceDeletionModalOpen(true);
+									}}
+								>
+									Remove
+								</Button>
+							</div>
 						</div>
-					</div>
-				) : (
-					<div className={classes["info-wrapper"]}>
-						No device selected
-					</div>
-				)}
-			</div>
-		</Modal>
+					) : (
+						<div className={classes["info-wrapper"]}>
+							No device selected
+						</div>
+					)}
+				</div>
+			</Modal>
+		</>
 	);
 }

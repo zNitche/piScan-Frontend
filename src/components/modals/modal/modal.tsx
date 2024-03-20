@@ -1,11 +1,13 @@
 import { Dispatch, PropsWithChildren, SetStateAction } from "react";
 import classes from "./modal.module.css";
 import CloseIcon from "@/icons/close";
+import clsx from "@/utils/clsx";
 
 interface ModalProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	title: string;
+	nested?: boolean;
 	onCloseCallback?: () => void;
 }
 
@@ -13,12 +15,18 @@ export default function Modal({
 	isOpen,
 	setIsOpen,
 	title,
+	nested,
 	onCloseCallback,
 	children,
 }: PropsWithChildren<ModalProps>) {
 	return (
 		isOpen && (
-			<div className={classes["modal-wrapper"]}>
+			<div
+				className={clsx(
+					classes["modal-wrapper"],
+					nested && classes.nested,
+				)}
+			>
 				<div className={classes.modal}>
 					<div className={classes.header}>
 						<span>{title}</span>
