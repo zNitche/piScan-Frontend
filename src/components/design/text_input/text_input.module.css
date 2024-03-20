@@ -2,8 +2,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: 1rem 1rem;
+    width: fit-content;
+    padding: 10px;
     font-size: var(--font-md);
     font-weight: 400;
     color: var(--font-dark);
@@ -14,4 +14,12 @@
     appearance: none;
     border-radius: 5px;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.full-width {
+    width: auto;
 }

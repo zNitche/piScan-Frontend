@@ -1,12 +1,18 @@
 import { InputHTMLAttributes } from "react";
 import classes from "./text_input.module.css";
+import clsx from "@/utils/clsx";
 
-export default function TextInput(
-	props: InputHTMLAttributes<HTMLInputElement>,
-) {
+interface TextInputProps {
+	fullWidth?: boolean;
+}
+
+export default function TextInput({
+	fullWidth,
+	...props
+}: TextInputProps & InputHTMLAttributes<HTMLInputElement>) {
 	return (
 		<input
-			className={classes.input}
+			className={clsx(classes.input, fullWidth && classes["full-width"])}
 			{...props}
 		/>
 	);
