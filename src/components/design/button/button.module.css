@@ -1,6 +1,7 @@
 .button {
     display: flex;
     align-items: center;
+    justify-content: center;
     font-weight: 400;
     text-decoration: none;
     cursor: pointer;
@@ -17,6 +18,19 @@
                 border-color .15s ease-in-out, 
                 box-shadow .15s ease-in-out;
     color: var(--white);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.button:disabled {
+    background-color: var(--btn-disabled);
+    color: var(--btn-disabled-font);
+}
+
+.button:disabled:hover {
+    background-color: var(--btn-disabled);
 }
 
 .primary {

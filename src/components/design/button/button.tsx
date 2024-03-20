@@ -4,11 +4,13 @@ import clsx from "@/utils/clsx";
 
 interface ButtonProps {
 	variant?: "primary" | "secondary" | "success" | "danger";
+	fullWidth?: boolean;
 }
 
 export default function Button({
 	children,
 	variant,
+	fullWidth,
 	...props
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
 	return (
@@ -16,6 +18,7 @@ export default function Button({
 			className={clsx(
 				classes.button,
 				variant ? classes[variant] : classes.primary,
+				fullWidth && classes["full-width"]
 			)}
 			{...props}
 		>

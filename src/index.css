@@ -33,6 +33,8 @@
     --btn-danger: #dc3545;
     --btn-danger-hover: #bb3845;
     --btn-danger-active: #b62231;
+    --btn-disabled: #5a5a5a;
+    --btn-disabled-font: #a1a1a1;
 
     --text-input-border: #ced4da;
 }
