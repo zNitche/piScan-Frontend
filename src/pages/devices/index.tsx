@@ -6,12 +6,13 @@ import Loader from "@/components/design/loader/loader";
 import AddDeviceModal from "@/components/modals/add_device_modal/add_device_modal";
 import useFetchDevices from "@/hooks/fetch/use_fetch_devices";
 import DeviceManagementModal from "@/components/modals/device_management_modal/device_management_modal";
+import Device from "@/types/devices/device";
 
 export default function Devices() {
 	const [isAddDeviceModalOpen, setIsAddDeviceModalOpen] = useState(false);
 	const [isDeviceManagementModalOpen, setIsDeviceManagementModalOpen] =
 		useState(false);
-	const [choosenDeviceId, setChoosenDeviceId] = useState("");
+	const [choosenDevice, setChoosenDevice] = useState<Device | undefined>();
 
 	const { isLoading, isError, data: devices, refetch } = useFetchDevices();
 
@@ -22,7 +23,7 @@ export default function Devices() {
 					key={device.uuid}
 					className={classes["device-card-wrapper"]}
 					onClick={() => {
-						setChoosenDeviceId(device.device_id);
+						setChoosenDevice(device);
 						setIsDeviceManagementModalOpen(true);
 					}}
 				>
@@ -35,26 +36,23 @@ export default function Devices() {
 		});
 	}, [devices]);
 
-	const handleAddNewDevice = useCallback(async () => {
+	const refetchDevices = useCallback(async () => {
 		await refetch();
 	}, [refetch]);
-
-	const deviceManagementModalClosedCallback = useCallback(() => {
-		setChoosenDeviceId("");
-	}, []);
 
 	return (
 		<>
 			<AddDeviceModal
 				isOpen={isAddDeviceModalOpen}
 				setIsOpen={setIsAddDeviceModalOpen}
-				onAddedDeviceCallback={handleAddNewDevice}
+				onAddedDeviceCallback={refetchDevices}
 			/>
 			<DeviceManagementModal
 				isOpen={isDeviceManagementModalOpen}
 				setIsOpen={setIsDeviceManagementModalOpen}
-				onCloseCallback={deviceManagementModalClosedCallback}
-				deviceId={choosenDeviceId}
+				device={choosenDevice}
+				onDeviceRemovedCallback={refetchDevices}
+				onDeviceUpdatedCallback={refetchDevices}
 			/>
 			<div className={classes.wrapper}>
 				{isError ? (

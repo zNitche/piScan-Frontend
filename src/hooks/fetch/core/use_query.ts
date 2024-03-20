@@ -30,7 +30,7 @@ export default function useQuery<ResponseDataType>(
 
 			const res = await fetch(urlObj.toString(), {
 				method: "GET",
-				headers: [],
+				headers: {},
 			});
 
 			const resData = await res.json();

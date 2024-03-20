@@ -1,19 +1,22 @@
-import AddNewDeviceResponse from "@/types/api/add_new_device_response";
 import NewDevice from "@/types/api/new_device";
 import { useCallback, useState } from "react";
 import config from "@/config";
 import useFetch from "./core/use_fetch";
 
-interface usePostNewDevicesResults {
+interface AddNewDeviceResponse {
+	success: boolean;
+}
+
+interface PostNewDevicesResults {
 	isLoading: boolean;
 	isError: boolean;
 	post: (data: NewDevice) => Promise<AddNewDeviceResponse>;
 	currentDeviceId: string;
 }
 
-export default function usePostNewDevices(): usePostNewDevicesResults {
+export default function usePostNewDevices(): PostNewDevicesResults {
 	const [currentDeviceId, setCurrentDeviceId] = useState("");
-	const { isLoading, isError, fetchData } = useFetch<NewDevice, null>(
+	const { isLoading, isError, fetchData } = useFetch<NewDevice, undefined>(
 		`${config.API_URL}/devices/`,
 	);
 

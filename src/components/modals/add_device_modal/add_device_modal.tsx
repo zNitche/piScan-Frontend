@@ -54,6 +54,7 @@ export default function AddDeviceModal({
 
 				if (res.success && !addingDeviceError) {
 					addSuccessNotification("Successfully added new device");
+
 					void onAddedDeviceCallback?.();
 					setIsOpen(false);
 				} else {
@@ -61,7 +62,7 @@ export default function AddDeviceModal({
 				}
 			}
 		},
-		[addDevice, addingDevice],
+		[addDevice, addingDevice, addingDeviceError],
 	);
 
 	const devicesCards = useMemo(() => {

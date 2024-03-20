@@ -11,7 +11,7 @@ interface Results<InputDataType, ResponseDataType> {
 
 export default function useFetch<InputDataType, ResponseDataType>(
 	url: string,
-	type: "POST" | "PUT" | "DELETE" = "POST",
+	method: "POST" | "PUT" | "DELETE" = "POST",
 ): Results<InputDataType, ResponseDataType> {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
@@ -27,7 +27,7 @@ export default function useFetch<InputDataType, ResponseDataType>(
 
 			try {
 				const res = await fetch(url, {
-					method: type,
+					method: method,
 					headers: {
 						"Content-Type": "application/json",
 					},
