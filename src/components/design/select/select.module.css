@@ -1,0 +1,13 @@
+.select {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: var(--font-md);
+    border-radius: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
