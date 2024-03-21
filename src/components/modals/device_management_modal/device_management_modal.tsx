@@ -17,6 +17,7 @@ import useNotifications from "@/hooks/use_notifications";
 import DeviceUpdate from "@/types/api/device_update";
 import ConfirmDeviceDeletionModal from "../confirm_device_deletion_modal/confirm_device_deletion_modal";
 import useSetDeviceScanResolutions from "@/hooks/fetch/use_set_device_scan_resolutions";
+import clsx from "@/utils/clsx";
 
 interface DeviceManagementModalProps {
 	isOpen: boolean;
@@ -147,25 +148,52 @@ export default function DeviceManagementModal({
 				<div className={classes.wrapper}>
 					{deviceAvailable ? (
 						<div className={classes["content-wrapper"]}>
-							<TextInput
-								fullWidth
-								value={deviceName}
-								onChange={(
-									event: ChangeEvent<HTMLInputElement>,
-								) => {
-									setDeviceName(event.target.value);
-								}}
-							/>
-							<TextInput
-								fullWidth
-								value={scanResolutions}
-								onChange={(
-									event: ChangeEvent<HTMLInputElement>,
-								) => {
-									setScanResolutions(event.target.value);
-								}}
-								placeholder="200,300"
-							/>
+							<div className={classes["content-row"]}>
+								<span>Device name</span>
+								<TextInput
+									fullWidth
+									value={deviceName}
+									onChange={(
+										event: ChangeEvent<HTMLInputElement>,
+									) => {
+										setDeviceName(event.target.value);
+									}}
+								/>
+							</div>
+							<div className={classes["content-row"]}>
+								<span>Scan resolutions</span>
+								<TextInput
+									fullWidth
+									value={scanResolutions}
+									onChange={(
+										event: ChangeEvent<HTMLInputElement>,
+									) => {
+										setScanResolutions(event.target.value);
+									}}
+									placeholder="200,300 etc"
+								/>
+							</div>
+							<div
+								className={clsx(
+									classes["content-row"],
+									classes.horizontal,
+								)}
+							>
+								Scan formats:{" "}
+								<div
+									className={classes["scan-formats-wrapper"]}
+								>
+									{device && device.scan_formats.length > 0
+										? device.scan_formats.map((item) => {
+												return (
+													<span key={item.uuid}>
+														{item.name}
+													</span>
+												);
+											})
+										: "---"}
+								</div>
+							</div>
 							<div className={classes["actions-wrapper"]}>
 								<Button
 									variant="success"
