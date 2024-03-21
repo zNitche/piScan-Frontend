@@ -27,10 +27,7 @@ export default function Devices() {
 						setIsDeviceManagementModalOpen(true);
 					}}
 				>
-					<DeviceCard
-						name={device.name}
-						uuid={device.uuid}
-					/>
+					<DeviceCard name={device.name} />
 				</div>
 			);
 		});
