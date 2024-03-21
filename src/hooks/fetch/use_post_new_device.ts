@@ -17,7 +17,7 @@ interface PostNewDevicesResults {
 export default function usePostNewDevices(): PostNewDevicesResults {
 	const [currentDeviceId, setCurrentDeviceId] = useState("");
 	const { isLoading, isError, fetchData } = useFetch<NewDevice, undefined>(
-		`${config.API_URL}/devices/`,
+		`${config.API_URL}/devices`,
 	);
 
 	const postData = useCallback(
