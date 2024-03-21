@@ -4,7 +4,7 @@ import AddDeviceCard from "@/components/add_device_card/add_device_card";
 import DeviceCard from "@/components/device_card/device_card";
 import Loader from "@/components/design/loader/loader";
 import AddDeviceModal from "@/components/modals/add_device_modal/add_device_modal";
-import useFetchDevices from "@/hooks/fetch/use_fetch_devices";
+import useGetDevices from "@/hooks/fetch/use_get_devices";
 import DeviceManagementModal from "@/components/modals/device_management_modal/device_management_modal";
 import Device from "@/types/devices/device";
 
@@ -14,7 +14,7 @@ export default function Devices() {
 		useState(false);
 	const [choosenDevice, setChoosenDevice] = useState<Device | undefined>();
 
-	const { isLoading, isError, data: devices, refetch } = useFetchDevices();
+	const { isLoading, isError, data: devices, refetch } = useGetDevices();
 
 	const cards = useMemo(() => {
 		return devices?.map((device) => {

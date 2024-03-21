@@ -7,7 +7,7 @@ import {
 } from "react";
 import classes from "./add_device_modal.module.css";
 import Loader from "@/components/design/loader/loader";
-import useFetchConnectedDevices from "@/hooks/fetch/use_fetch_connected_devices";
+import useGetConnectedDevices from "@/hooks/fetch/use_get_connected_devices";
 import usePostNewDevices from "@/hooks/fetch/use_post_new_device";
 import useNotifications from "@/hooks/use_notifications";
 import AddIcon from "@/icons/add";
@@ -30,7 +30,7 @@ export default function AddDeviceModal({
 }: AddDeviceModalProps) {
 	const { addSuccessNotification, addErrorNotification } = useNotifications();
 
-	const { isLoading, isError, data, refetch } = useFetchConnectedDevices();
+	const { isLoading, isError, data, refetch } = useGetConnectedDevices();
 	const {
 		isLoading: addingDevice,
 		isError: addingDeviceError,
