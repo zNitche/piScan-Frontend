@@ -4,49 +4,49 @@ import CloseIcon from "@/icons/close";
 import clsx from "@/utils/clsx";
 
 interface ModalProps {
-	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	title: string;
-	nested?: boolean;
-	onCloseCallback?: () => void;
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    title: string;
+    nested?: boolean;
+    onCloseCallback?: () => void;
 }
 
 export default function Modal({
-	isOpen,
-	setIsOpen,
-	title,
-	nested,
-	onCloseCallback,
-	children,
+    isOpen,
+    setIsOpen,
+    title,
+    nested,
+    onCloseCallback,
+    children,
 }: PropsWithChildren<ModalProps>) {
-	return (
-		isOpen && (
-			<div
-				className={clsx(
-					classes["modal-wrapper"],
-					nested && classes.nested,
-				)}
-			>
-				<div className={classes.modal}>
-					<div className={classes.header}>
-						<span>{title}</span>
-						<CloseIcon
-							className={classes["close-icon"]}
-							onClick={() => {
-								setIsOpen(false);
-								onCloseCallback?.();
-							}}
-						/>
-					</div>
-					<div className={classes.content}>{children}</div>
-				</div>
-				<div
-					className={classes.overlay}
-					onClick={() => {
-						setIsOpen(false);
-					}}
-				/>
-			</div>
-		)
-	);
+    return (
+        isOpen && (
+            <div
+                className={clsx(
+                    classes["modal-wrapper"],
+                    nested && classes.nested,
+                )}
+            >
+                <div className={classes.modal}>
+                    <div className={classes.header}>
+                        <span>{title}</span>
+                        <CloseIcon
+                            className={classes["close-icon"]}
+                            onClick={() => {
+                                setIsOpen(false);
+                                onCloseCallback?.();
+                            }}
+                        />
+                    </div>
+                    <div className={classes.content}>{children}</div>
+                </div>
+                <div
+                    className={classes.overlay}
+                    onClick={() => {
+                        setIsOpen(false);
+                    }}
+                />
+            </div>
+        )
+    );
 }

@@ -1,5 +1,5 @@
 interface DeviceUpdate {
-	name: string;
+    name: string;
 }
 
 export default DeviceUpdate;

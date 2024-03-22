@@ -3,16 +3,16 @@ import config from "@/config";
 import useQuery from "./core/use_query";
 
 interface useGetDevicesResults {
-	isLoading: boolean;
-	isError: boolean;
-	refetch: () => Promise<void>;
-	data: Device[] | [];
+    isLoading: boolean;
+    isError: boolean;
+    refetch: () => Promise<void>;
+    data: Device[] | [];
 }
 
 export default function useGetDevices(): useGetDevicesResults {
-	const { isLoading, isError, refetch, data } = useQuery<Device[]>(
-		`${config.API_URL}/devices`,
-	);
+    const { isLoading, isError, refetch, data } = useQuery<Device[]>(
+        `${config.API_URL}/devices`,
+    );
 
-	return { isLoading, isError, refetch, data: data ? data : [] };
+    return { isLoading, isError, refetch, data: data ? data : [] };
 }

@@ -3,26 +3,26 @@ import NotificationTypeEnum from "@/types/enums/notifications_type_enum";
 import { useCallback, useContext } from "react";
 
 interface useNotificationsResults {
-	addSuccessNotification: (text: string, expiration?: number) => void;
-	addErrorNotification: (text: string, expiration?: number) => void;
+    addSuccessNotification: (text: string, expiration?: number) => void;
+    addErrorNotification: (text: string, expiration?: number) => void;
 }
 
 export default function useNotifications(): useNotificationsResults {
-	const { addNotification } = useContext(NotificationsContext);
+    const { addNotification } = useContext(NotificationsContext);
 
-	const addSuccessNotification = useCallback(
-		(text: string, expiration: number = 5000) => {
-			addNotification(text, expiration, NotificationTypeEnum.Success);
-		},
-		[addNotification],
-	);
+    const addSuccessNotification = useCallback(
+        (text: string, expiration: number = 5000) => {
+            addNotification(text, expiration, NotificationTypeEnum.Success);
+        },
+        [addNotification],
+    );
 
-	const addErrorNotification = useCallback(
-		(text: string, expiration: number = 2000) => {
-			addNotification(text, expiration, NotificationTypeEnum.Error);
-		},
-		[addNotification],
-	);
+    const addErrorNotification = useCallback(
+        (text: string, expiration: number = 2000) => {
+            addNotification(text, expiration, NotificationTypeEnum.Error);
+        },
+        [addNotification],
+    );
 
-	return { addSuccessNotification, addErrorNotification };
+    return { addSuccessNotification, addErrorNotification };
 }

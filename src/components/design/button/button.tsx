@@ -3,26 +3,26 @@ import classes from "./button.module.css";
 import clsx from "@/utils/clsx";
 
 interface ButtonProps {
-	variant?: "primary" | "secondary" | "success" | "danger";
-	fullWidth?: boolean;
+    variant?: "primary" | "secondary" | "success" | "danger";
+    fullWidth?: boolean;
 }
 
 export default function Button({
-	children,
-	variant,
-	fullWidth,
-	...props
+    children,
+    variant,
+    fullWidth,
+    ...props
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
-	return (
-		<button
-			className={clsx(
-				classes.button,
-				variant ? classes[variant] : classes.primary,
-				fullWidth && classes["full-width"]
-			)}
-			{...props}
-		>
-			{children}
-		</button>
-	);
+    return (
+        <button
+            className={clsx(
+                classes.button,
+                variant ? classes[variant] : classes.primary,
+                fullWidth && classes["full-width"],
+            )}
+            {...props}
+        >
+            {children}
+        </button>
+    );
 }

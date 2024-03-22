@@ -4,17 +4,17 @@ import NotFound from "./pages/not_found";
 import Devices from "./pages/devices";
 
 export default function Router() {
-	return (
-		<Switch>
-			<Route
-				path="/"
-				component={Home}
-			/>
-			<Route
-				path="/devices"
-				component={Devices}
-			/>
-			<Route component={NotFound} />
-		</Switch>
-	);
+    return (
+        <Switch>
+            <Route
+                path="/"
+                component={Home}
+            />
+            <Route
+                path="/devices"
+                component={Devices}
+            />
+            <Route component={NotFound} />
+        </Switch>
+    );
 }

@@ -1,6 +1,6 @@
 interface ScanFormat {
-	uuid: string;
-	name: string;
+    uuid: string;
+    name: string;
 }
 
 export default ScanFormat;

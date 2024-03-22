@@ -4,18 +4,18 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react()],
-	server: {
-		port: 3030,
-		host: true,
-	},
-	build: {
-		target: "es2022",
-		sourcemap: false,
-	},
-	resolve: {
-		alias: {
-			"@": resolve(__dirname, "./src")
-		}
-	}
+    plugins: [react()],
+    server: {
+        port: 3030,
+        host: true,
+    },
+    build: {
+        target: "es2022",
+        sourcemap: false,
+    },
+    resolve: {
+        alias: {
+            "@": resolve(__dirname, "./src"),
+        },
+    },
 });

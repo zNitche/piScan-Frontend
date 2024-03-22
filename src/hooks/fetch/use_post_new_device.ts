@@ -4,41 +4,41 @@ import config from "@/config";
 import useFetch from "./core/use_fetch";
 
 interface AddNewDeviceResponse {
-	success: boolean;
+    success: boolean;
 }
 
 interface PostNewDevicesResults {
-	isLoading: boolean;
-	isError: boolean;
-	post: (data: NewDevice) => Promise<AddNewDeviceResponse>;
-	currentDeviceId: string;
+    isLoading: boolean;
+    isError: boolean;
+    post: (data: NewDevice) => Promise<AddNewDeviceResponse>;
+    currentDeviceId: string;
 }
 
 export default function usePostNewDevices(): PostNewDevicesResults {
-	const [currentDeviceId, setCurrentDeviceId] = useState("");
-	const { isLoading, isError, fetchData } = useFetch<NewDevice, undefined>(
-		`${config.API_URL}/devices`,
-	);
+    const [currentDeviceId, setCurrentDeviceId] = useState("");
+    const { isLoading, isError, fetchData } = useFetch<NewDevice, undefined>(
+        `${config.API_URL}/devices`,
+    );
 
-	const postData = useCallback(
-		async (data: NewDevice) => {
-			setCurrentDeviceId(data.device_id);
+    const postData = useCallback(
+        async (data: NewDevice) => {
+            setCurrentDeviceId(data.device_id);
 
-			const res = await fetchData(data);
+            const res = await fetchData(data);
 
-			setCurrentDeviceId("");
+            setCurrentDeviceId("");
 
-			return {
-				success: res?.code === 200 || res?.code === 201,
-			};
-		},
-		[fetchData],
-	);
+            return {
+                success: res?.code === 200 || res?.code === 201,
+            };
+        },
+        [fetchData],
+    );
 
-	return {
-		isLoading,
-		isError,
-		post: postData,
-		currentDeviceId,
-	};
+    return {
+        isLoading,
+        isError,
+        post: postData,
+        currentDeviceId,
+    };
 }

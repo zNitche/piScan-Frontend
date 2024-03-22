@@ -1,7 +1,6 @@
 enum NotificationTypeEnum {
     Success = "success",
-    Error = "error"
+    Error = "error",
 }
 
 export default NotificationTypeEnum;
-  
