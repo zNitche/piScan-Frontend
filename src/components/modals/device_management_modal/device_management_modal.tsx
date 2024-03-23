@@ -17,7 +17,7 @@ import useNotifications from "@/hooks/use_notifications";
 import DeviceUpdate from "@/types/api/device_update";
 import ConfirmDeviceDeletionModal from "../confirm_device_deletion_modal/confirm_device_deletion_modal";
 import useSetDeviceScanResolutions from "@/hooks/fetch/use_set_device_scan_resolutions";
-import clsx from "@/utils/clsx";
+import DeviceScanFormatsManagement from "@/components/device_scan_formats_management/device_scan_formats_management";
 
 interface DeviceManagementModalProps {
     isOpen: boolean;
@@ -173,27 +173,9 @@ export default function DeviceManagementModal({
                                     placeholder="200,300 etc"
                                 />
                             </div>
-                            <div
-                                className={clsx(
-                                    classes["content-row"],
-                                    classes.horizontal,
-                                )}
-                            >
-                                Scan formats:{" "}
-                                <div
-                                    className={classes["scan-formats-wrapper"]}
-                                >
-                                    {device && device.scan_formats.length > 0
-                                        ? device.scan_formats.map((item) => {
-                                              return (
-                                                  <span key={item.uuid}>
-                                                      {item.name}
-                                                  </span>
-                                              );
-                                          })
-                                        : "---"}
-                                </div>
-                            </div>
+                            <DeviceScanFormatsManagement
+                                deviceUUID={device?.uuid}
+                            />
                             <div className={classes["actions-wrapper"]}>
                                 <Button
                                     variant="success"

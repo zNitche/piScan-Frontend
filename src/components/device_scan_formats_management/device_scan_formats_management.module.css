@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.horizontal {
+    flex-direction: row;
+}
+
+.formats {
+    display: flex;
+    font-weight: 600;
+}

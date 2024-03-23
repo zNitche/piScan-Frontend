@@ -33,15 +33,6 @@
     font-weight: 500;
 }
 
-.scan-formats-wrapper {
-    font-weight: 700;
-}
-
-.horizontal {
-    display: flex;
-    flex-direction: row;
-}
-
 @media (max-width: 576px) {
     .actions-wrapper {
         flex-direction: column;
