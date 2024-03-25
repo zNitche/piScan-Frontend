@@ -42,10 +42,10 @@ export default function ScanFormatsManagementModal({
         refetch: refetchScanFormats,
     } = useGetScanFormats(false);
 
-    const { isLoading: isAddingNewScanFormat, post: addNewScanFormat } =
+    const { isLoading: isAddingNewScanFormat, fetch: addNewScanFormat } =
         usePostNewScanFormat();
 
-    const { isLoading: isRemovingScanFormat, post: deleteScanFormat } =
+    const { isLoading: isRemovingScanFormat, fetch: deleteScanFormat } =
         useDeleteScanFormat();
 
     useEffect(() => {

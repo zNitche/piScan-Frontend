@@ -9,7 +9,7 @@ interface DeleteDeviceResponse {
 interface DeleteDeviceResults {
     isLoading: boolean;
     isError: boolean;
-    delete: () => Promise<DeleteDeviceResponse>;
+    fetch: () => Promise<DeleteDeviceResponse>;
 }
 
 export default function useDeleteDevice(
@@ -20,7 +20,7 @@ export default function useDeleteDevice(
         "DELETE",
     );
 
-    const deleteData = useCallback(async () => {
+    const fetchHandler = useCallback(async () => {
         if (uuid) {
             const res = await fetchData(undefined);
 
@@ -37,6 +37,6 @@ export default function useDeleteDevice(
     return {
         isLoading,
         isError,
-        delete: deleteData,
+        fetch: fetchHandler,
     };
 }

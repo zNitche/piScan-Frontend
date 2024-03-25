@@ -9,7 +9,7 @@ interface SetDeviceScanResolutionsResponse {
 interface SetDeviceScanResolutionsResults {
     isLoading: boolean;
     isError: boolean;
-    update: (data: number[]) => Promise<SetDeviceScanResolutionsResponse>;
+    fetch: (data: number[]) => Promise<SetDeviceScanResolutionsResponse>;
 }
 
 export default function useSetDeviceScanResolutions(
@@ -19,7 +19,7 @@ export default function useSetDeviceScanResolutions(
         `${config.API_URL}/devices/${uuid}/resolutions`,
     );
 
-    const updateData = useCallback(
+    const fetchHandler = useCallback(
         async (data: number[]) => {
             if (uuid) {
                 const res = await fetchData(data);
@@ -39,6 +39,6 @@ export default function useSetDeviceScanResolutions(
     return {
         isLoading,
         isError,
-        update: updateData,
+        fetch: fetchHandler,
     };
 }

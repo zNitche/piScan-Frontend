@@ -10,7 +10,7 @@ interface UpdateDeviceResponse {
 interface UpdateDeviceResults {
     isLoading: boolean;
     isError: boolean;
-    update: (data: DeviceUpdate) => Promise<UpdateDeviceResponse>;
+    fetch: (data: DeviceUpdate) => Promise<UpdateDeviceResponse>;
 }
 
 export default function useUpdateDevice(
@@ -21,7 +21,7 @@ export default function useUpdateDevice(
         "PUT",
     );
 
-    const updateData = useCallback(
+    const fetchHandler = useCallback(
         async (data: DeviceUpdate) => {
             if (uuid) {
                 const res = await fetchData(data);
@@ -41,6 +41,6 @@ export default function useUpdateDevice(
     return {
         isLoading,
         isError,
-        update: updateData,
+        fetch: fetchHandler,
     };
 }

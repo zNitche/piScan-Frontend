@@ -9,7 +9,7 @@ interface DeleteScanFormatResponse {
 interface DeleteScanFormatResults {
     isLoading: boolean;
     isError: boolean;
-    post: (uuid: string) => Promise<DeleteScanFormatResponse>;
+    fetch: (uuid: string) => Promise<DeleteScanFormatResponse>;
 }
 
 export default function useDeleteScanFormat(): DeleteScanFormatResults {
@@ -18,7 +18,7 @@ export default function useDeleteScanFormat(): DeleteScanFormatResults {
         "DELETE",
     );
 
-    const postData = useCallback(
+    const fetchHandler = useCallback(
         async (uuid: string) => {
             const res = await fetchData(
                 undefined,
@@ -35,6 +35,6 @@ export default function useDeleteScanFormat(): DeleteScanFormatResults {
     return {
         isLoading,
         isError,
-        post: postData,
+        fetch: fetchHandler,
     };
 }

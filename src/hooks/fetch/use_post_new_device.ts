@@ -10,7 +10,7 @@ interface AddNewDeviceResponse {
 interface PostNewDevicesResults {
     isLoading: boolean;
     isError: boolean;
-    post: (data: NewDevice) => Promise<AddNewDeviceResponse>;
+    fetch: (data: NewDevice) => Promise<AddNewDeviceResponse>;
     currentDeviceId: string;
 }
 
@@ -20,7 +20,7 @@ export default function usePostNewDevices(): PostNewDevicesResults {
         `${config.API_URL}/devices`,
     );
 
-    const postData = useCallback(
+    const fetchHandler = useCallback(
         async (data: NewDevice) => {
             setCurrentDeviceId(data.device_id);
 
@@ -38,7 +38,7 @@ export default function usePostNewDevices(): PostNewDevicesResults {
     return {
         isLoading,
         isError,
-        post: postData,
+        fetch: fetchHandler,
         currentDeviceId,
     };
 }

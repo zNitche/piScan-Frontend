@@ -10,7 +10,7 @@ interface PostNewScanFormatResponse {
 interface PostNewScanFormatResults {
     isLoading: boolean;
     isError: boolean;
-    post: (data: NewScanFormat) => Promise<PostNewScanFormatResponse>;
+    fetch: (data: NewScanFormat) => Promise<PostNewScanFormatResponse>;
 }
 
 export default function usePostNewScanFormat(): PostNewScanFormatResults {
@@ -19,7 +19,7 @@ export default function usePostNewScanFormat(): PostNewScanFormatResults {
         undefined
     >(`${config.API_URL}/scan-formats`);
 
-    const postData = useCallback(
+    const fetchHandler = useCallback(
         async (data: NewScanFormat) => {
             const res = await fetchData(data);
 
@@ -33,6 +33,6 @@ export default function usePostNewScanFormat(): PostNewScanFormatResults {
     return {
         isLoading,
         isError,
-        post: postData,
+        fetch: fetchHandler,
     };
 }

@@ -9,7 +9,7 @@ interface AddScanFormatToDeviceResponse {
 interface AddScanFormatToDeviceResults {
     isLoading: boolean;
     isError: boolean;
-    post: (
+    fetch: (
         deviceUUID: string,
         scanFormatUUID: string,
     ) => Promise<AddScanFormatToDeviceResponse>;
@@ -18,7 +18,7 @@ interface AddScanFormatToDeviceResults {
 export default function useAddScanFormatToDevice(): AddScanFormatToDeviceResults {
     const { isLoading, isError, fetchData } = useFetch<undefined, undefined>();
 
-    const postData = useCallback(
+    const fetchHandler = useCallback(
         async (deviceUUID: string, scanFromatUUID: string) => {
             const res = await fetchData(
                 undefined,
@@ -35,6 +35,6 @@ export default function useAddScanFormatToDevice(): AddScanFormatToDeviceResults
     return {
         isLoading,
         isError,
-        post: postData,
+        fetch: fetchHandler,
     };
 }

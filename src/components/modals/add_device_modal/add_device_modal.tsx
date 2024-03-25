@@ -34,7 +34,7 @@ export default function AddDeviceModal({
     const {
         isLoading: addingDevice,
         isError: addingDeviceError,
-        post: addDevice,
+        fetch: addDevice,
         currentDeviceId,
     } = usePostNewDevices();
 

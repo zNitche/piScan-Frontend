@@ -52,19 +52,19 @@ export default function DeviceManagementModal({
     const {
         isLoading: isUpdatingDevice,
         isError: errorWhileUpdatingDevice,
-        update: updateDevice,
+        fetch: updateDevice,
     } = useUpdateDevice(device?.uuid);
 
     const {
         isLoading: isDeletingDevice,
         isError: errorWhileDeletingDevice,
-        delete: deleteDevice,
+        fetch: deleteDevice,
     } = useDeleteDevice(device?.uuid);
 
     const {
         isLoading: isUpdatingDeviceScanResolutions,
         isError: errorWhileUpdatingDeviceScanResolutions,
-        update: updateDeviceScanResolutions,
+        fetch: updateDeviceScanResolutions,
     } = useSetDeviceScanResolutions(device?.uuid);
 
     useEffect(() => {

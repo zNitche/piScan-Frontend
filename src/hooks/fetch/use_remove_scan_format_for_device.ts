@@ -9,7 +9,7 @@ interface RemoveScanFormatForDeviceResponse {
 interface RemoveScanFormatForDeviceResults {
     isLoading: boolean;
     isError: boolean;
-    post: (
+    fetch: (
         deviceUUID: string,
         scanFormatUUID: string,
     ) => Promise<RemoveScanFormatForDeviceResponse>;
@@ -21,7 +21,7 @@ export default function useRemoveScanFormatForDevice(): RemoveScanFormatForDevic
         "DELETE",
     );
 
-    const postData = useCallback(
+    const fetchHandler = useCallback(
         async (deviceUUID: string, scanFromatUUID: string) => {
             const res = await fetchData(
                 undefined,
@@ -38,6 +38,6 @@ export default function useRemoveScanFormatForDevice(): RemoveScanFormatForDevic
     return {
         isLoading,
         isError,
-        post: postData,
+        fetch: fetchHandler,
     };
 }
