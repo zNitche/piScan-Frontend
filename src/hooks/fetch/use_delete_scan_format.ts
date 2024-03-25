@@ -26,7 +26,7 @@ export default function useDeleteScanFormat(): DeleteScanFormatResults {
             );
 
             return {
-                success: res?.code === 201,
+                success: res?.code === 200,
             };
         },
         [fetchData],

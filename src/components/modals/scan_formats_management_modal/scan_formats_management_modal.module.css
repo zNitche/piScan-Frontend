@@ -1,0 +1,39 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-xl);
+    font-weight: 500;
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actions-wrapper {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .actions-wrapper {
+        flex-direction: column;
+    }
+}

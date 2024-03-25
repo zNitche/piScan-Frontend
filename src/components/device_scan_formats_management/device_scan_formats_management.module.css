@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
 }
 
 .horizontal {
@@ -29,4 +30,12 @@
 .formats {
     display: flex;
     font-weight: 600;
+    flex-wrap: wrap;
+}
+
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--font-light);
+    margin-left: auto;
 }

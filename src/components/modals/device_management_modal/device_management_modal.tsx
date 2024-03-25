@@ -18,6 +18,7 @@ import DeviceUpdate from "@/types/api/device_update";
 import ConfirmDeviceDeletionModal from "../confirm_device_deletion_modal/confirm_device_deletion_modal";
 import useSetDeviceScanResolutions from "@/hooks/fetch/use_set_device_scan_resolutions";
 import DeviceScanFormatsManagement from "@/components/device_scan_formats_management/device_scan_formats_management";
+import ScanFormatsManagementModal from "../scan_formats_management_modal/scan_formats_management_modal";
 
 interface DeviceManagementModalProps {
     isOpen: boolean;
@@ -36,6 +37,10 @@ export default function DeviceManagementModal({
 }: DeviceManagementModalProps) {
     const [isDeviceDeletionModalOpen, setIsDeviceDeletionModalOpen] =
         useState(false);
+    const [
+        isScanFormatsManagementModalsOpen,
+        setIsScanFormatsManagementModalsOpen,
+    ] = useState(false);
     const [deviceAvailable, setDeviceAvailable] = useState(false);
     const [deviceName, setDeviceName] = useState(device ? device.name : "");
     const [scanResolutions, setScanResolutions] = useState(
@@ -140,6 +145,11 @@ export default function DeviceManagementModal({
                     await handleDeleteDevice();
                 }}
             />
+            <ScanFormatsManagementModal
+                isOpen={isScanFormatsManagementModalsOpen}
+                setIsOpen={setIsScanFormatsManagementModalsOpen}
+                inAnotherModal={true}
+            />
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -175,6 +185,9 @@ export default function DeviceManagementModal({
                             </div>
                             <DeviceScanFormatsManagement
                                 deviceUUID={device?.uuid}
+                                onSettingsIconClick={() => {
+                                    setIsScanFormatsManagementModalsOpen(true);
+                                }}
                             />
                             <div className={classes["actions-wrapper"]}>
                                 <Button

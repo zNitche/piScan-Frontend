@@ -2,18 +2,21 @@ import useGetScanFormatsForDevice from "@/hooks/fetch/use_get_scan_formats_for_d
 import classes from "./device_scan_formats_management.module.css";
 import Loader from "../design/loader/loader";
 import clsx from "@/utils/clsx";
+import SettingsIcon from "@/icons/settings";
 
 interface DeviceScanFormatsManagementProps {
     deviceUUID: string | undefined;
+    onSettingsIconClick?: () => void;
 }
 
 export default function DeviceScanFormatsManagement({
     deviceUUID,
+    onSettingsIconClick,
 }: DeviceScanFormatsManagementProps) {
     const {
-        isLoading: isLoadingScanFormats,
+        isLoading: isLoadingScanFormatsForDevice,
         isError: errorWhileLoadingScanFormats,
-        data: scanFormats,
+        data: deviceScanFormats,
     } = useGetScanFormatsForDevice(deviceUUID);
 
     return (
@@ -23,17 +26,17 @@ export default function DeviceScanFormatsManagement({
                     Error while loading scan formats
                 </div>
             )}
-            {!errorWhileLoadingScanFormats && isLoadingScanFormats ? (
+            {!errorWhileLoadingScanFormats && isLoadingScanFormatsForDevice ? (
                 <div className={classes.loader}>
                     <Loader />
                 </div>
             ) : (
                 <div className={classes.wrapper}>
                     <div className={clsx(classes.row, classes.horizontal)}>
-                        Scan formats:{" "}
+                        Device scan formats:{" "}
                         <div className={classes.formats}>
-                            {scanFormats && scanFormats.length > 0
-                                ? scanFormats.map((item) => {
+                            {deviceScanFormats && deviceScanFormats.length > 0
+                                ? deviceScanFormats.map((item) => {
                                       return (
                                           <span key={item.uuid}>
                                               {item.name}
@@ -41,6 +44,14 @@ export default function DeviceScanFormatsManagement({
                                       );
                                   })
                                 : "---"}
+                        </div>
+                        <div
+                            className={classes["settings-icon"]}
+                            onClick={() => {
+                                onSettingsIconClick?.();
+                            }}
+                        >
+                            <SettingsIcon />
                         </div>
                     </div>
                 </div>

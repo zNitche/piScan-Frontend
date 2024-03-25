@@ -12,7 +12,7 @@ interface SelectProps {
     fullWidth?: boolean;
 }
 
-export default function Button({
+export default function Select({
     items,
     fullWidth,
     ...props
