@@ -32,6 +32,7 @@ export default function ConfirmDeviceDeletionModal({
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             title="Delete Device"
+            extraStyles={classes["modal-wrapper"]}
         >
             <div className={classes.wrapper}>
                 <div className={classes.title}>

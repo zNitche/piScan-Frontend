@@ -32,6 +32,10 @@
     justify-content: center;
 }
 
+.modal-wrapper {
+    width: 350px;
+}
+
 @media (max-width: 576px) {
     .actions-wrapper {
         flex-direction: column;

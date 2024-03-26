@@ -7,6 +7,7 @@ interface ModalProps {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     title: string;
+    extraStyles?: string;
     nested?: boolean;
     onCloseCallback?: () => void;
 }
@@ -15,6 +16,7 @@ export default function Modal({
     isOpen,
     setIsOpen,
     title,
+    extraStyles,
     nested,
     onCloseCallback,
     children,
@@ -27,7 +29,7 @@ export default function Modal({
                     nested && classes.nested,
                 )}
             >
-                <div className={classes.modal}>
+                <div className={clsx(classes.modal, extraStyles)}>
                     <div className={classes.header}>
                         <span>{title}</span>
                         <CloseIcon

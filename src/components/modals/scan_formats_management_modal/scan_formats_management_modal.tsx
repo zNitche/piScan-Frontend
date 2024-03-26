@@ -98,6 +98,7 @@ export default function ScanFormatsManagementModal({
             setIsOpen={setIsOpen}
             title="Scan Formats Management"
             nested={inAnotherModal}
+            extraStyles={classes["modal-wrapper"]}
         >
             <div className={classes.wrapper}>
                 {errorWhileGettingScanFormats && (
@@ -162,7 +163,9 @@ export default function ScanFormatsManagementModal({
                     <Button
                         variant="danger"
                         fullWidth
-                        disabled={isRemovingScanFormat}
+                        disabled={
+                            isRemovingScanFormat || !currentlySelectedScanFormat
+                        }
                         onClick={handleDeleteScanFormat}
                     >
                         Remove Selected

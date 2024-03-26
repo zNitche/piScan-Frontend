@@ -18,6 +18,10 @@
     gap: 15px;
 }
 
+.modal-wrapper {
+    width: 350px;
+}
+
 @media (max-width: 576px) {
     .actions {
         flex-direction: column;
