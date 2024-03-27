@@ -2,6 +2,8 @@
 import { createContext } from "react";
 import NotificationsContextType from "../types/context/notifications_context";
 import NotificationTypeEnum from "../types/enums/notifications_type_enum";
+import SelectedDeviceContextType from "@/types/context/selected_device_context";
+import Device from "@/types/devices/device";
 
 export const NotificationsContext = createContext<NotificationsContextType>({
     addNotification(
@@ -9,6 +11,13 @@ export const NotificationsContext = createContext<NotificationsContextType>({
         _expiration: number,
         _type: NotificationTypeEnum,
     ): void {
+        throw new Error("Function not implemented");
+    },
+});
+
+export const SelectedDeviceContext = createContext<SelectedDeviceContextType>({
+    device: undefined,
+    setDevice(_device: Device): void {
         throw new Error("Function not implemented");
     },
 });
