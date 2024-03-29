@@ -12,10 +12,10 @@ interface useGetConnectedDevicesResults {
 export default function useGetConnectedDevices(
     fetchOnMount: boolean = false,
 ): useGetConnectedDevicesResults {
-    const { isLoading, isError, refetch, data } = useQuery<ConnectedDevice[]>(
-        `${config.API_URL}/devices/list-connected`,
+    const { isLoading, isError, refetch, data } = useQuery<ConnectedDevice[]>({
+        url: `${config.API_URL}/devices/list-connected`,
         fetchOnMount,
-    );
+    });
 
     return { isLoading, isError, refetch, data: data ? data : [] };
 }

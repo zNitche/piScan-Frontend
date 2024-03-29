@@ -1,6 +1,14 @@
 import { addSearchParamsToUrl } from "@/utils/fetch";
 import { useCallback, useEffect, useState } from "react";
 
+interface Params {
+    url: string;
+    queryParams?: Array<string | number | boolean | undefined>;
+    isEnabled?: boolean;
+    fetchOnMount?: boolean;
+    searchParams?: Record<string, string | number | null | undefined>;
+}
+
 interface Results<ResponseDataType> {
     isLoading: boolean;
     isError: boolean;
@@ -8,17 +16,19 @@ interface Results<ResponseDataType> {
     data: ResponseDataType | undefined;
 }
 
-export default function useQuery<ResponseDataType>(
-    url: string,
-    fetchOnMount: boolean = true,
-    searchParams?: Record<string, string | number | null | undefined>,
-): Results<ResponseDataType> {
+export default function useQuery<ResponseDataType>({
+    url,
+    queryParams = [],
+    isEnabled = true,
+    fetchOnMount = true,
+    searchParams,
+}: Params): Results<ResponseDataType> {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [data, setData] = useState<ResponseDataType | undefined>(undefined);
 
     const fetchData = useCallback(async () => {
-        if (isLoading) {
+        if (isLoading || !isEnabled) {
             return;
         }
 
@@ -41,13 +51,19 @@ export default function useQuery<ResponseDataType>(
         }
 
         setIsLoading(false);
-    }, [url, isLoading]);
+    }, [url, isLoading, isEnabled]);
 
     useEffect(() => {
         if (fetchOnMount) {
             void fetchData();
         }
     }, []);
+
+    useEffect(() => {
+        if (queryParams.length > 0) {
+            void fetchData();
+        }
+    }, queryParams);
 
     return { isLoading, isError, refetch: fetchData, data };
 }

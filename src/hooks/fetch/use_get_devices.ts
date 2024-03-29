@@ -10,9 +10,9 @@ interface useGetDevicesResults {
 }
 
 export default function useGetDevices(): useGetDevicesResults {
-    const { isLoading, isError, refetch, data } = useQuery<Device[]>(
-        `${config.API_URL}/devices`,
-    );
+    const { isLoading, isError, refetch, data } = useQuery<Device[]>({
+        url: `${config.API_URL}/devices`,
+    });
 
     return { isLoading, isError, refetch, data: data ? data : [] };
 }

@@ -12,10 +12,12 @@ interface useGetScanFormatsForDeviceResults {
 export default function useGetScanFormatsForDevice(
     uuid: string | undefined,
 ): useGetScanFormatsForDeviceResults {
-    const { isLoading, isError, refetch, data } = useQuery<ScanFormat[]>(
-        `${config.API_URL}/devices/${uuid}/scan-formats`,
-        false,
-    );
+    const { isLoading, isError, refetch, data } = useQuery<ScanFormat[]>({
+        url: `${config.API_URL}/devices/${uuid}/scan-formats`,
+        isEnabled: Boolean(uuid !== undefined),
+        fetchOnMount: false,
+        queryParams: [uuid],
+    });
 
     return { isLoading, isError, refetch, data: data ? data : [] };
 }
