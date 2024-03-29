@@ -169,6 +169,9 @@ export default function DeviceManagementModal({
                 isOpen={isScanFormatsManagementModalsOpen}
                 setIsOpen={setIsScanFormatsManagementModalsOpen}
                 inAnotherModal={true}
+                onScanFormatRemovedCallbackCallback={
+                    refetchScanFormatsForDevice
+                }
             />
             <Modal
                 isOpen={isOpen}

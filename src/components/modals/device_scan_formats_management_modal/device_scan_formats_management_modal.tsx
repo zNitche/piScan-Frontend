@@ -9,6 +9,7 @@ import {
     SetStateAction,
     useCallback,
     useEffect,
+    useMemo,
     useState,
 } from "react";
 import Button from "@/components/design/button/button";
@@ -17,6 +18,7 @@ import useAddScanFormatToDevice from "@/hooks/fetch/use_add_scan_format_to_devic
 import useRemoveScanFormatForDevice from "@/hooks/fetch/use_remove_scan_format_for_device";
 import ScanFormat from "@/types/scan_format";
 import useSelectedDevice from "@/hooks/use_selected_device";
+import useGetScanFormatsForDevice from "@/hooks/fetch/use_get_scan_formats_for_device";
 
 interface DeviceScanFormatsManagementModalProps {
     isOpen: boolean;
@@ -33,12 +35,15 @@ export default function DeviceScanFormatsManagementModal({
 }: DeviceScanFormatsManagementModalProps) {
     const [currentlySelectedScanFormat, setCurrentlySelectedScanFormat] =
         useState<ScanFormat | undefined>(undefined);
-    const [filteredScanFormats, setFilteredScanFormats] = useState<
-        ScanFormat[]
-    >([]);
 
     const { addSuccessNotification, addErrorNotification } = useNotifications();
     const { selectedDevice: device } = useSelectedDevice();
+
+    const {
+        refetch: refetchScanFormatsForDevice,
+        isLoading: isLoadingScanFormatsForDevice,
+        data: deviceScanFormats,
+    } = useGetScanFormatsForDevice(device?.uuid);
 
     const {
         isLoading: isLoadingScanFormats,
@@ -53,11 +58,13 @@ export default function DeviceScanFormatsManagementModal({
     const { isLoading: isRemovingScanFormat, fetch: deleteScanFormat } =
         useRemoveScanFormatForDevice();
 
-    useEffect(() => {
-        if (isOpen) {
-            void refetchScanFormats();
-        }
-    }, [isOpen]);
+    const alreadyAddedScanFormatsIds = useMemo(() => {
+        return deviceScanFormats.map((format) => format.uuid);
+    }, [deviceScanFormats]);
+
+    const formatAlreadyAdded = currentlySelectedScanFormat
+        ? alreadyAddedScanFormatsIds.includes(currentlySelectedScanFormat.uuid)
+        : false;
 
     useEffect(() => {
         if (isOpen) {
@@ -66,7 +73,7 @@ export default function DeviceScanFormatsManagementModal({
     }, [isOpen]);
 
     useEffect(() => {
-        if (scanFormats && scanFormats.length > 0) {
+        if (scanFormats.length > 0 && !currentlySelectedScanFormat) {
             setCurrentlySelectedScanFormat(scanFormats[0]);
         }
     }, [scanFormats]);
@@ -83,6 +90,7 @@ export default function DeviceScanFormatsManagementModal({
                     `Successfully added "${currentlySelectedScanFormat.name}" to ${device.name}`,
                 );
                 void onActionCompletedCallback?.();
+                void refetchScanFormatsForDevice?.();
             } else {
                 addErrorNotification("Error while adding scan format");
             }
@@ -101,6 +109,7 @@ export default function DeviceScanFormatsManagementModal({
                     "Scan format has been successfully removed",
                 );
                 void onActionCompletedCallback?.();
+                void refetchScanFormatsForDevice?.();
             } else {
                 addErrorNotification("Error while removing scan format");
             }
@@ -127,7 +136,7 @@ export default function DeviceScanFormatsManagementModal({
                     </div>
                 ) : (
                     <div className={classes.row}>
-                        {scanFormats && scanFormats.length > 0 ? (
+                        {scanFormats.length > 0 ? (
                             <div className={classes.row}>
                                 Available scan formats
                                 <Select
@@ -160,7 +169,13 @@ export default function DeviceScanFormatsManagementModal({
                     <Button
                         variant="success"
                         fullWidth
-                        disabled={Boolean(isAddingScanFormat && device)}
+                        disabled={
+                            isAddingScanFormat ||
+                            !currentlySelectedScanFormat ||
+                            formatAlreadyAdded ||
+                            isLoadingScanFormats ||
+                            isLoadingScanFormatsForDevice
+                        }
                         onClick={handleAddScanFormat}
                     >
                         Add
@@ -169,7 +184,11 @@ export default function DeviceScanFormatsManagementModal({
                         variant="danger"
                         fullWidth
                         disabled={
-                            isRemovingScanFormat || !currentlySelectedScanFormat
+                            isRemovingScanFormat ||
+                            !currentlySelectedScanFormat ||
+                            !formatAlreadyAdded ||
+                            isLoadingScanFormats ||
+                            isLoadingScanFormatsForDevice
                         }
                         onClick={handleDeleteScanFormat}
                     >

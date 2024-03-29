@@ -22,12 +22,14 @@ interface ScanFormatsManagementModalProps {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     inAnotherModal?: boolean;
+    onScanFormatRemovedCallbackCallback?: () => Promise<void>;
 }
 
 export default function ScanFormatsManagementModal({
     isOpen,
     setIsOpen,
     inAnotherModal,
+    onScanFormatRemovedCallbackCallback,
 }: ScanFormatsManagementModalProps) {
     const [newScanFormatName, setNewScanFormatName] = useState("");
     const [currentlySelectedScanFormat, setCurrentlySelectedScanFormat] =
@@ -89,6 +91,8 @@ export default function ScanFormatsManagementModal({
             } else {
                 addErrorNotification("Error while removing scan format");
             }
+
+            void onScanFormatRemovedCallbackCallback?.();
         }
     }, [isRemovingScanFormat, currentlySelectedScanFormat]);
 
