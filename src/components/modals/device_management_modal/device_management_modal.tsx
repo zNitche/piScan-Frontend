@@ -8,7 +8,6 @@ import {
     useEffect,
     useState,
 } from "react";
-import Device from "@/types/devices/device";
 import TextInput from "@/components/design/text_input/text_input";
 import Button from "@/components/design/button/button";
 import useUpdateDevice from "@/hooks/fetch/use_update_device";
@@ -19,11 +18,13 @@ import ConfirmDeviceDeletionModal from "../confirm_device_deletion_modal/confirm
 import useSetDeviceScanResolutions from "@/hooks/fetch/use_set_device_scan_resolutions";
 import DeviceScanFormatsManagement from "@/components/device_scan_formats_management/device_scan_formats_management";
 import ScanFormatsManagementModal from "../scan_formats_management_modal/scan_formats_management_modal";
+import DeviceScanFormatsManagementModal from "../device_scan_formats_management_modal/device_scan_formats_management_modal";
+import useSelectedDevice from "@/hooks/use_selected_device";
+import useGetScanFormatsForDevice from "@/hooks/fetch/use_get_scan_formats_for_device";
 
 interface DeviceManagementModalProps {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
-    device: Device | undefined;
     onDeviceRemovedCallback?: () => Promise<void>;
     onDeviceUpdatedCallback?: () => Promise<void>;
 }
@@ -31,16 +32,22 @@ interface DeviceManagementModalProps {
 export default function DeviceManagementModal({
     isOpen,
     setIsOpen,
-    device,
     onDeviceRemovedCallback,
     onDeviceUpdatedCallback,
 }: DeviceManagementModalProps) {
+    const { selectedDevice: device } = useSelectedDevice();
+
     const [isDeviceDeletionModalOpen, setIsDeviceDeletionModalOpen] =
         useState(false);
     const [
         isScanFormatsManagementModalsOpen,
         setIsScanFormatsManagementModalsOpen,
     ] = useState(false);
+    const [
+        isDeviceScanFormatsManagementModalOpen,
+        setIsDeviceScanFormatsManagementModalOpen,
+    ] = useState(false);
+
     const [deviceAvailable, setDeviceAvailable] = useState(false);
     const [deviceName, setDeviceName] = useState(device ? device.name : "");
     const [scanResolutions, setScanResolutions] = useState(
@@ -66,6 +73,13 @@ export default function DeviceManagementModal({
         isError: errorWhileUpdatingDeviceScanResolutions,
         fetch: updateDeviceScanResolutions,
     } = useSetDeviceScanResolutions(device?.uuid);
+
+    const {
+        isLoading: isLoadingScanFormatsForDevice,
+        isError: errorWhileLoadingScanFormats,
+        refetch: refetchScanFormatsForDevice,
+        data: deviceScanFormats,
+    } = useGetScanFormatsForDevice(device?.uuid);
 
     useEffect(() => {
         setDeviceAvailable(device ? true : false);
@@ -145,6 +159,12 @@ export default function DeviceManagementModal({
                     await handleDeleteDevice();
                 }}
             />
+            <DeviceScanFormatsManagementModal
+                isOpen={isDeviceScanFormatsManagementModalOpen}
+                setIsOpen={setIsDeviceScanFormatsManagementModalOpen}
+                inAnotherModal={true}
+                onActionCompletedCallback={refetchScanFormatsForDevice}
+            />
             <ScanFormatsManagementModal
                 isOpen={isScanFormatsManagementModalsOpen}
                 setIsOpen={setIsScanFormatsManagementModalsOpen}
@@ -183,12 +203,23 @@ export default function DeviceManagementModal({
                                     placeholder="200,300 etc"
                                 />
                             </div>
-                            <DeviceScanFormatsManagement
-                                deviceUUID={device?.uuid}
-                                onSettingsIconClick={() => {
-                                    setIsScanFormatsManagementModalsOpen(true);
-                                }}
-                            />
+                            <div className={classes["scan-formats-management"]}>
+                                <DeviceScanFormatsManagement
+                                    scanFormats={deviceScanFormats}
+                                    isLoading={isLoadingScanFormatsForDevice}
+                                    isError={errorWhileLoadingScanFormats}
+                                    onSettingsIconClick={() => {
+                                        setIsScanFormatsManagementModalsOpen(
+                                            true,
+                                        );
+                                    }}
+                                    onEditIconClick={() => {
+                                        setIsDeviceScanFormatsManagementModalOpen(
+                                            true,
+                                        );
+                                    }}
+                                />
+                            </div>
                             <div className={classes["actions-wrapper"]}>
                                 <Button
                                     variant="success"

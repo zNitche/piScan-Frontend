@@ -31,11 +31,16 @@
     display: flex;
     font-weight: 600;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
-.settings-icon {
+.icon {
     width: 24px;
     height: 24px;
     fill: var(--font-light);
+    cursor: pointer;
+}
+
+.settings-icon {
     margin-left: auto;
 }

@@ -14,6 +14,7 @@ export default function useGetScanFormatsForDevice(
 ): useGetScanFormatsForDeviceResults {
     const { isLoading, isError, refetch, data } = useQuery<ScanFormat[]>(
         `${config.API_URL}/devices/${uuid}/scan-formats`,
+        false,
     );
 
     return { isLoading, isError, refetch, data: data ? data : [] };
