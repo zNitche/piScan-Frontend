@@ -11,16 +11,18 @@ export default function Button({
     children,
     variant,
     fullWidth,
-    ...props
+    className,
+    ...otherProps
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
     return (
         <button
             className={clsx(
-                classes.button,
+                className,
+                classes.btn,
                 variant ? classes[variant] : classes.primary,
                 fullWidth && classes["full-width"],
             )}
-            {...props}
+            {...otherProps}
         >
             {children}
         </button>
