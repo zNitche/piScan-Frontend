@@ -4,7 +4,7 @@
     font-size: var(--font-xl);
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .header-wrapper {
         padding: 16px 20%;
     }

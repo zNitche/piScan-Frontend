@@ -93,7 +93,7 @@ body {
 }
 
 
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .content-wrapper {
         padding: 16px 20%;
     }
