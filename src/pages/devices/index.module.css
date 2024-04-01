@@ -11,16 +11,17 @@
 
 .device-card-wrapper {
     width: 200px;
-    height: 200px;
+    aspect-ratio: 1/1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.devices-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.device-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(0, min(100%/1, max(200px, 100%/6))));
+    grid-gap: 10px;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -36,10 +37,12 @@
 
 @media (max-width: 576px) {
     .device-card-wrapper {
+        height: 200px;
         width: 100%;
     }
 
-    .devices-cards {
+    .device-cards {
+        display: flex;
         flex-direction: column;
     }
 }

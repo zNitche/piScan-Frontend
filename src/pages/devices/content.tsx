@@ -55,7 +55,7 @@ export default function Content() {
                 {isError ? (
                     <div className={classes.error}>Error while loading...</div>
                 ) : (
-                    <div className={classes["devices-cards"]}>
+                    <div className={classes["device-cards"]}>
                         {!isLoading && (
                             <div
                                 className={classes["device-card-wrapper"]}
