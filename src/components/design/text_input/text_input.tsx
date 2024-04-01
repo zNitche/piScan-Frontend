@@ -8,12 +8,20 @@ interface TextInputProps {
 
 export default function TextInput({
     fullWidth,
-    ...props
+    className,
+    ...otherProps
 }: TextInputProps & InputHTMLAttributes<HTMLInputElement>) {
     return (
-        <input
-            className={clsx(classes.input, fullWidth && classes["full-width"])}
-            {...props}
-        />
+        <div
+            className={clsx(
+                classes["input-wrapper"],
+                fullWidth && classes["full-width"],
+            )}
+        >
+            <input
+                className={clsx(className, classes.input)}
+                {...otherProps}
+            />
+        </div>
     );
 }
