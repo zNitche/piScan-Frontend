@@ -7,6 +7,7 @@ export default function CloseIcon(props: SVGAttributes<SVGElement>) {
             height="24"
             viewBox="0 -960 960 960"
             width="24"
+            fill="var(--font-light)"
             {...props}
         >
             <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />

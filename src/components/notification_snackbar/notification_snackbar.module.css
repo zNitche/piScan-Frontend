@@ -22,7 +22,6 @@
 
 .icon {
     cursor: pointer;
-    fill: var(--font-light);
 }
 
 .success-notification {
