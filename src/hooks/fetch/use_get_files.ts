@@ -1,0 +1,21 @@
+import config from "@/config";
+import useInfiniteQuery from "./core/use_infinite_query";
+import ScanFile from "@/types/scan_file";
+
+export default function useGetFiles() {
+    const { isLoading, isError, hasNext, refetch, fetchNext, data } =
+        useInfiniteQuery<ScanFile>({
+            url: `${config.API_URL}/scan-files`,
+            itemsPerPage: 1,
+            fetchOnMount: true,
+        });
+
+    return {
+        isLoading,
+        isError,
+        hasNext,
+        refetch,
+        fetchNext,
+        data,
+    };
+}
