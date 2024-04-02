@@ -1,9 +1,11 @@
-import { addSearchParamsToUrl } from "@/utils/fetch";
+import { addSearchParamsToUrl, getData } from "@/utils/fetch";
 import { useCallback, useEffect, useState } from "react";
 
 interface Params {
     url: string;
-    queryParams?: Array<string | number | boolean | undefined>;
+    queryDependencyParams?: Array<
+        string | number | boolean | undefined | object
+    >;
     isEnabled?: boolean;
     fetchOnMount?: boolean;
     searchParams?: Record<string, string | number | null | undefined>;
@@ -18,7 +20,7 @@ interface Results<ResponseDataType> {
 
 export default function useQuery<ResponseDataType>({
     url,
-    queryParams = [],
+    queryDependencyParams = [],
     isEnabled = true,
     fetchOnMount = true,
     searchParams,
@@ -37,13 +39,11 @@ export default function useQuery<ResponseDataType>({
 
         try {
             const urlObj = addSearchParamsToUrl(url, searchParams);
+            const resData = await getData<ResponseDataType>(
+                urlObj,
+                searchParams,
+            );
 
-            const res = await fetch(urlObj.toString(), {
-                method: "GET",
-                headers: {},
-            });
-
-            const resData = await res.json();
             setData(resData);
         } catch (error) {
             console.error(`error while fetching ${url}: ${error}`);
@@ -51,7 +51,7 @@ export default function useQuery<ResponseDataType>({
         }
 
         setIsLoading(false);
-    }, [url, isLoading, isEnabled]);
+    }, [url, isLoading, isEnabled, searchParams]);
 
     useEffect(() => {
         if (fetchOnMount) {
@@ -60,10 +60,10 @@ export default function useQuery<ResponseDataType>({
     }, []);
 
     useEffect(() => {
-        if (queryParams.length > 0) {
+        if (queryDependencyParams.length > 0) {
             void fetchData();
         }
-    }, queryParams);
+    }, queryDependencyParams);
 
     return { isLoading, isError, refetch: fetchData, data };
 }
