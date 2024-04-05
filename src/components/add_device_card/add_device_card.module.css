@@ -15,15 +15,6 @@
     background-color: var(--background2-active);
 }
 
-.name {
-    color: var(--font-light);
-    font-size: var(--font-md);
-    width: 100%;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .icon {
     width: 64px;
     height: 64px;

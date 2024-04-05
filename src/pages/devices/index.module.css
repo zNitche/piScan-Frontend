@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
     flex-direction: column;
+    padding: 16px 0;
 }
 
 .loader-wrapper {
@@ -21,8 +22,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(0, min(100%/1, max(200px, 100%/6))));
     grid-gap: 10px;
-    align-items: flex-start;
-    justify-content: center;
 }
 
 .error {

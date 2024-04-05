@@ -60,7 +60,8 @@ body {
 .content-wrapper {
     height: 100%;
     overflow-y: scroll;
-    padding: 16px;
+    overflow-x: hidden;
+    padding: 0 16px 0 16px;
     color: var(--font-dark);
 
     -ms-overflow-style: none;
@@ -95,6 +96,6 @@ body {
 
 @media (min-width: 992px) {
     .content-wrapper {
-        padding: 16px 20%;
+        padding: 0 20%;
     }
 }
