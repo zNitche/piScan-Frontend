@@ -1,4 +1,4 @@
-import { addSearchParamsToUrl, getData } from "@/utils/fetch";
+import { getData } from "@/utils/fetch";
 import { useCallback, useEffect, useState } from "react";
 
 interface Params {
@@ -38,11 +38,7 @@ export default function useQuery<ResponseDataType>({
         setIsError(false);
 
         try {
-            const urlObj = addSearchParamsToUrl(url, searchParams);
-            const resData = await getData<ResponseDataType>(
-                urlObj,
-                searchParams,
-            );
+            const resData = await getData<ResponseDataType>(url, searchParams);
 
             setData(resData);
         } catch (error) {

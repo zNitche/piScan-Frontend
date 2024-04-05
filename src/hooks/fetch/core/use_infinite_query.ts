@@ -1,4 +1,4 @@
-import { addSearchParamsToUrl, getData } from "@/utils/fetch";
+import { getData } from "@/utils/fetch";
 import { useCallback, useEffect, useState } from "react";
 
 interface Params {
@@ -35,9 +35,11 @@ export default function useInfiniteQuery<ResponseDataType>({
     const [data, setData] = useState<ResponseDataType[]>([]);
 
     const fetchData = useCallback(
-        async (params?: typeof searchParams) => {
+        async (params?: typeof searchParams, forced?: boolean) => {
             if (isLoading || !isEnabled) {
-                return;
+                if (!forced) {
+                    return;
+                }
             }
 
             setHasNext(true);
@@ -47,12 +49,10 @@ export default function useInfiniteQuery<ResponseDataType>({
             let resData = undefined;
 
             try {
-                const urlObj = addSearchParamsToUrl(url, params);
-
-                resData = await getData<ResponseDataType[]>(
-                    urlObj,
-                    searchParams,
-                );
+                resData = await getData<ResponseDataType[]>(url, {
+                    ...params,
+                    ...searchParams,
+                });
             } catch (error) {
                 console.error(`error while fetching ${url}: ${error}`);
                 setIsError(true);
@@ -61,23 +61,26 @@ export default function useInfiniteQuery<ResponseDataType>({
             setIsLoading(false);
             return resData;
         },
-        [url, isLoading, isEnabled],
+        [url, isLoading, isEnabled, searchParams],
     );
 
-    const refetch = useCallback(async () => {
-        setData([]);
+    const refetch = useCallback(
+        async (forced?: boolean) => {
+            const params = {
+                limit: itemsPerPage,
+                offset: 0,
+            };
 
-        const params = {
-            limit: itemsPerPage,
-            offset: 0,
-        };
+            const resData = await fetchData(params, forced);
 
-        const resData = await fetchData(params);
+            setData([]);
 
-        if (resData !== undefined) {
-            setData(resData);
-        }
-    }, [itemsPerPage]);
+            if (resData !== undefined) {
+                setData(resData);
+            }
+        },
+        [itemsPerPage, fetchData],
+    );
 
     const fetchNext = useCallback(async () => {
         const params = {
@@ -92,7 +95,7 @@ export default function useInfiniteQuery<ResponseDataType>({
         } else {
             setHasNext(false);
         }
-    }, [data, itemsPerPage]);
+    }, [data, itemsPerPage, fetchData]);
 
     useEffect(() => {
         if (fetchOnMount) {
@@ -102,7 +105,7 @@ export default function useInfiniteQuery<ResponseDataType>({
 
     useEffect(() => {
         if (queryDependencyParams.length > 0) {
-            void refetch();
+            void refetch(true);
         }
     }, queryDependencyParams);
 

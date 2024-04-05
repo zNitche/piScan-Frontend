@@ -8,7 +8,7 @@ export function addSearchParamsToUrl(
         for (const key in searchParams) {
             const value = searchParams[key];
 
-            if (key && value !== undefined && value != null) {
+            if (key && value !== undefined && value != null && value !== "") {
                 urlObj.searchParams.append(key, value.toString());
             }
         }
