@@ -1,0 +1,46 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background2);
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--font-light);
+}
+
+.content {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.wrapper:hover {
+    background-color: var(--background2-active);
+}
+
+.name {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date {
+    font-size: var(--font-md);
+    font-weight: 600;
+}
+
+.image-wrapper {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+}
+
+.image {
+    width: 100%;
+    object-fit: cover;
+}
