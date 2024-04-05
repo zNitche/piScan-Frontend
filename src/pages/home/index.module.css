@@ -42,11 +42,21 @@
     flex-direction: column;
 }
 
-.loader {
+.info-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: var("--font-xxl");
+    text-transform: uppercase;
+}
+
+.error {
+    font-weight: 800;
+}
+
+.info {
+    font-weight: 500;
 }
 
 .bottom-actions {

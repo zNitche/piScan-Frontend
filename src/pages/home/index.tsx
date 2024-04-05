@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import SearchBar from "@/components/search_bar/search_bar";
 import classes from "./index.module.css";
 import { useEffect, useState } from "react";
@@ -6,13 +7,15 @@ import Button from "@/components/design/button/button";
 import FileCard from "@/components/file_card/file_card";
 import Loader from "@/components/design/loader/loader";
 import { useLocation, useSearch } from "wouter";
+import clsx from "@/utils/clsx";
 
 export default function Home() {
     const [_location, navigate] = useLocation();
     const searchParams = useSearch();
     const [searchQuery, setSearchQuery] = useState("");
 
-    const { isLoading, hasNext, data, fetchNext } = useGetFiles(searchQuery);
+    const { isLoading, isError, hasNext, data, fetchNext } =
+        useGetFiles(searchQuery);
 
     useEffect(() => {
         const params = new URLSearchParams(searchParams);
@@ -55,9 +58,23 @@ export default function Home() {
                         );
                     })}
                 </div>
+                {!isLoading && !isError && data.length === 0 && (
+                    <div
+                        className={clsx(classes["info-wrapper"], classes.info)}
+                    >
+                        No files to show
+                    </div>
+                )}
                 {isLoading && (
-                    <div className={classes.loader}>
+                    <div className={clsx(classes["info-wrapper"])}>
                         <Loader variant="sm" />
+                    </div>
+                )}
+                {!isLoading && isError && (
+                    <div
+                        className={clsx(classes["info-wrapper"], classes.error)}
+                    >
+                        Error while loading files
                     </div>
                 )}
                 {hasNext && (
