@@ -98,7 +98,7 @@ export default function useInfiniteQuery<ResponseDataType>({
     }, [data, itemsPerPage, fetchData]);
 
     useEffect(() => {
-        if (fetchOnMount) {
+        if (fetchOnMount && !(queryDependencyParams.length > 0)) {
             void refetch();
         }
     }, []);

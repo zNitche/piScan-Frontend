@@ -50,7 +50,7 @@ export default function useQuery<ResponseDataType>({
     }, [url, isLoading, isEnabled, searchParams]);
 
     useEffect(() => {
-        if (fetchOnMount) {
+        if (fetchOnMount && !(queryDependencyParams.length > 0)) {
             void fetchData();
         }
     }, []);
