@@ -4,6 +4,8 @@ import NotificationsContextType from "../types/context/notifications_context";
 import NotificationTypeEnum from "../types/enums/notifications_type_enum";
 import SelectedDeviceContextType from "@/types/context/selected_device_context";
 import Device from "@/types/devices/device";
+import SelectedFileContextType from "@/types/context/selected_file_context";
+import ScanFile from "@/types/scan_file";
 
 export const NotificationsContext = createContext<NotificationsContextType>({
     addNotification(
@@ -18,6 +20,13 @@ export const NotificationsContext = createContext<NotificationsContextType>({
 export const SelectedDeviceContext = createContext<SelectedDeviceContextType>({
     device: undefined,
     setDevice(_device: Device): void {
+        throw new Error("Function not implemented");
+    },
+});
+
+export const SelectedFileContext = createContext<SelectedFileContextType>({
+    file: undefined,
+    setFile(_file: ScanFile): void {
         throw new Error("Function not implemented");
     },
 });
