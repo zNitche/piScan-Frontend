@@ -16,6 +16,11 @@
     flex-direction: column;
 }
 
+.top {
+    display: flex;
+    align-items: center;
+}
+
 .wrapper:hover {
     background-color: var(--background2-active);
 }
@@ -34,6 +39,13 @@
 }
 
 .image-wrapper {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+}
+
+.image-wrapper a {
     display: flex;
     width: 100%;
     overflow: hidden;
