@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { formatDateToNormal } from "@/utils/date";
 import ErrorIndicatorIcon from "@/icons/error_indicator";
 import DeleteIcon from "@/icons/delete";
+import DownloadIcon from "@/icons/download";
 
 interface FileCardProps {
     file: ScanFile;
@@ -24,6 +25,15 @@ export default function FileCard({ file, onRemoveIconClick }: FileCardProps) {
                         {file.name ? file.name : "---"}
                     </div>
                     <div className={classes["top-actions"]}>
+                        <div>
+                            <a
+                                target="_blank"
+                                href={file.image.download_url}
+                                rel="noreferrer"
+                            >
+                                <DownloadIcon />
+                            </a>
+                        </div>
                         <div
                             onClick={() => {
                                 onRemoveIconClick?.();
