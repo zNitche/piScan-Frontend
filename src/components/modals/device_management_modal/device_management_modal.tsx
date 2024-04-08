@@ -150,7 +150,6 @@ export default function DeviceManagementModal({
             <ConfirmDeviceDeletionModal
                 isOpen={isDeviceDeletionModalOpen}
                 setIsOpen={setIsDeviceDeletionModalOpen}
-                deviceName={deviceName}
                 onCancelCallback={async () => {
                     setIsDeviceDeletionModalOpen(false);
                 }}

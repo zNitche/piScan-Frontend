@@ -1,12 +1,12 @@
 import classes from "./confirm_device_deletion_modal.module.css";
 import Modal from "../modal/modal";
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction } from "react";
 import Button from "@/components/design/button/button";
+import useSelectedDevice from "@/hooks/use_selected_device";
 
 interface ConfirmDeviceDeletionModalProps {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
-    deviceName: string | undefined;
     onConfirmCallback?: () => Promise<void>;
     onCancelCallback?: () => Promise<void>;
 }
@@ -14,17 +14,10 @@ interface ConfirmDeviceDeletionModalProps {
 export default function ConfirmDeviceDeletionModal({
     isOpen,
     setIsOpen,
-    deviceName,
     onConfirmCallback,
     onCancelCallback,
 }: ConfirmDeviceDeletionModalProps) {
-    const handleConfirm = useCallback(async () => {
-        void onConfirmCallback?.();
-    }, [onConfirmCallback]);
-
-    const handleCancel = useCallback(async () => {
-        void onCancelCallback?.();
-    }, [onCancelCallback]);
+    const { selectedDevice: device } = useSelectedDevice();
 
     return (
         <Modal
@@ -36,20 +29,24 @@ export default function ConfirmDeviceDeletionModal({
         >
             <div className={classes.wrapper}>
                 <div className={classes.title}>
-                    Are you sure you want to remove {deviceName} ?
+                    Are you sure you want to remove {device?.name} ?
                 </div>
                 <div className={classes.actions}>
                     <Button
                         variant="danger"
                         fullWidth
-                        onClick={handleConfirm}
+                        onClick={async () => {
+                            void onConfirmCallback?.();
+                        }}
                     >
                         Remove
                     </Button>
                     <Button
                         variant="secondary"
                         fullWidth
-                        onClick={handleCancel}
+                        onClick={async () => {
+                            void onCancelCallback?.();
+                        }}
                     >
                         Cancel
                     </Button>
