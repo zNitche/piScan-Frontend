@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-export default function ChevronDownIcon(props: SVGAttributes<SVGElement>) {
+export default function DeleteIcon(props: SVGAttributes<SVGElement>) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +10,7 @@ export default function ChevronDownIcon(props: SVGAttributes<SVGElement>) {
             fill="var(--font-light)"
             {...props}
         >
-            <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z" />
+            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
         </svg>
     );
 }

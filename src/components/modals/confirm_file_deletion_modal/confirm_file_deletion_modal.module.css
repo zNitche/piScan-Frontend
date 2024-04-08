@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-xl);
+    width: 100%;
+    gap: 20px;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-wrapper {
+    width: 350px;
+}
+
+@media (max-width: 576px) {
+    .actions {
+        flex-direction: column;
+    }
+}
