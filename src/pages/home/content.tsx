@@ -98,9 +98,6 @@ export default function Content() {
                                 <div
                                     key={file.uuid}
                                     className={classes["file-card-wrapper"]}
-                                    onClick={() => {
-                                        setSelectedFile(file);
-                                    }}
                                 >
                                     <FileCard
                                         file={file}

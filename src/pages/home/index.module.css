@@ -28,18 +28,19 @@
     display: none;
 }
 
+.files-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .file-card-wrapper {
-    width: 100%;
+    flex: 1 0 calc(50% - 5px);
+    max-width: calc(50% - 5px);
     height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.files-list {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
 }
 
 .info-wrapper {
@@ -74,7 +75,13 @@
         width: 100%;
     }
 
+    .files-list {
+        flex-direction: column;
+    }
+
     .file-card-wrapper {
+        flex: unset;
         width: 100%;
+        max-width: 100%;
     }
 }
