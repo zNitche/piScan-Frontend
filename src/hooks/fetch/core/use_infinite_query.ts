@@ -35,11 +35,9 @@ export default function useInfiniteQuery<ResponseDataType>({
     const [data, setData] = useState<ResponseDataType[]>([]);
 
     const fetchData = useCallback(
-        async (params?: typeof searchParams, forced?: boolean) => {
-            if (isLoading || !isEnabled) {
-                if (!forced) {
-                    return;
-                }
+        async (params?: typeof searchParams) => {
+            if (!isEnabled) {
+                return;
             }
 
             setHasNext(true);
@@ -53,36 +51,32 @@ export default function useInfiniteQuery<ResponseDataType>({
                     ...params,
                     ...searchParams,
                 });
+
+                setIsLoading(false);
             } catch (error) {
                 console.error(`error while fetching ${url}: ${error}`);
                 setIsError(true);
             }
 
-            setIsLoading(false);
             return resData;
         },
         [url, isLoading, isEnabled, searchParams],
     );
 
-    const refetch = useCallback(
-        async (forced?: boolean) => {
-            const params = {
-                limit: itemsPerPage,
-                offset: 0,
-            };
+    const refetch = useCallback(async () => {
+        const params = {
+            limit: itemsPerPage,
+            offset: 0,
+        };
 
-            const resData = await fetchData(params, forced);
+        const resData = await fetchData(params);
 
-            setData([]);
-
-            if (resData !== undefined && resData.length > 0) {
-                setData(resData);
-            } else {
-                setHasNext(false);
-            }
-        },
-        [itemsPerPage, fetchData],
-    );
+        if (resData !== undefined && resData.length > 0) {
+            setData(resData);
+        } else {
+            setHasNext(false);
+        }
+    }, [itemsPerPage, fetchData]);
 
     const fetchNext = useCallback(async () => {
         const params = {
@@ -107,7 +101,7 @@ export default function useInfiniteQuery<ResponseDataType>({
 
     useEffect(() => {
         if (queryDependencyParams.length > 0) {
-            void refetch(true);
+            void refetch();
         }
     }, queryDependencyParams);
 
