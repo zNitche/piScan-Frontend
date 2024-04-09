@@ -6,7 +6,7 @@ export default function useGetFiles(searchQuery: string) {
     const { isLoading, isError, hasNext, refetch, fetchNext, data } =
         useInfiniteQuery<ScanFile>({
             url: `${config.API_URL}/scan-files`,
-            itemsPerPage: 1,
+            itemsPerPage: 15,
             queryDependencyParams: [searchQuery],
             searchParams: {
                 search: searchQuery,

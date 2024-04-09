@@ -12,13 +12,16 @@ import useSelectedFile from "@/hooks/use_selected_file";
 import ConfirmFileDeletionModal from "@/components/modals/confirm_file_deletion_modal/confirm_file_deletion_modal";
 import useDeleteFile from "@/hooks/fetch/use_delete_file";
 import useNotifications from "@/hooks/use_notifications";
+import EditScanFileModal from "@/components/modals/edit_scan_file_modal/edit_scan_file_modal";
 
 export default function Content() {
     const [_location, navigate] = useLocation();
     const searchParams = useSearch();
     const [searchQuery, setSearchQuery] = useState("");
+
     const [isFileDeletionModalOpen, setIsFileDeletionModalOpen] =
         useState(false);
+    const [isEditFileModalOpen, setIsEditFileModalOpen] = useState(false);
 
     const { setSelectedFile, selectedFile: file } = useSelectedFile();
 
@@ -84,6 +87,13 @@ export default function Content() {
                     await handleDeleteFile();
                 }}
             />
+            <EditScanFileModal
+                isOpen={isEditFileModalOpen}
+                setIsOpen={setIsEditFileModalOpen}
+                onSuccessCallback={async () => {
+                    void refetch();
+                }}
+            />
             <div className={classes.wrapper}>
                 <div className={classes["filters-wrapper"]}>
                     <SearchBar
@@ -98,12 +108,17 @@ export default function Content() {
                                 <div
                                     key={file.uuid}
                                     className={classes["file-card-wrapper"]}
+                                    onClick={() => {
+                                        setSelectedFile(file);
+                                    }}
                                 >
                                     <FileCard
                                         file={file}
                                         onRemoveIconClick={() => {
-                                            setSelectedFile(file);
                                             setIsFileDeletionModalOpen(true);
+                                        }}
+                                        onEditIconClick={() => {
+                                            setIsEditFileModalOpen(true);
                                         }}
                                     />
                                 </div>

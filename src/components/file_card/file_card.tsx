@@ -5,13 +5,19 @@ import { formatDateToNormal } from "@/utils/date";
 import ErrorIndicatorIcon from "@/icons/error_indicator";
 import DeleteIcon from "@/icons/delete";
 import DownloadIcon from "@/icons/download";
+import EditIcon from "@/icons/edit";
 
 interface FileCardProps {
     file: ScanFile;
     onRemoveIconClick?: () => void;
+    onEditIconClick?: () => void;
 }
 
-export default function FileCard({ file, onRemoveIconClick }: FileCardProps) {
+export default function FileCard({
+    file,
+    onRemoveIconClick,
+    onEditIconClick,
+}: FileCardProps) {
     const createdAtDate = useMemo(() => {
         const date = formatDateToNormal(new Date(file.created_at));
         return date ? date : "---";
@@ -25,7 +31,15 @@ export default function FileCard({ file, onRemoveIconClick }: FileCardProps) {
                         {file.name ? file.name : "---"}
                     </div>
                     <div className={classes["top-actions"]}>
-                        <div>
+                        <div
+                            className={classes["action-icon"]}
+                            onClick={() => {
+                                onEditIconClick?.();
+                            }}
+                        >
+                            <EditIcon />
+                        </div>
+                        <div className={classes["action-icon"]}>
                             <a
                                 target="_blank"
                                 href={file.image.download_url}
@@ -35,6 +49,7 @@ export default function FileCard({ file, onRemoveIconClick }: FileCardProps) {
                             </a>
                         </div>
                         <div
+                            className={classes["action-icon"]}
                             onClick={() => {
                                 onRemoveIconClick?.();
                             }}
