@@ -3,6 +3,13 @@
     justify-content: center;
     width: 100%;
     gap: 10px;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    gap: 10px;
 }
 
 .format-selection {

@@ -10,6 +10,7 @@ import {
 } from "react";
 import ScanOptions from "@/types/scan_options";
 import ScanFormat from "@/types/scan_format";
+import TextInput from "../design/text_input/text_input";
 
 interface ScanOptionsSelectionProps {
     device: Device | undefined;
@@ -20,6 +21,7 @@ export default function ScanOptionsSelection({
     device,
     setScanOptions,
 }: ScanOptionsSelectionProps) {
+    const [fileName, setFileName] = useState("");
     const [selectedResolution, setSelectedResolution] = useState(0);
     const [selectedScanFormat, setSelectedScanFormat] = useState<
         ScanFormat | undefined
@@ -40,52 +42,66 @@ export default function ScanOptionsSelection({
     useEffect(() => {
         if (selectedResolution !== 0 && selectedScanFormat !== undefined) {
             setScanOptions({
+                fileName: fileName,
                 resolution: selectedResolution,
                 extension: selectedScanFormat.name,
             });
         }
-    }, [selectedResolution, selectedScanFormat]);
+    }, [selectedResolution, selectedScanFormat, fileName]);
 
     return (
         device && (
             <div className={classes.wrapper}>
-                <Select
-                    className={classes["format-selection"]}
-                    onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                        const format = device.scan_formats.find(
-                            (elem) => elem.uuid === event.currentTarget.value,
-                        );
+                <div className={classes.row}>
+                    <Select
+                        className={classes["format-selection"]}
+                        onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                            const format = device.scan_formats.find(
+                                (elem) =>
+                                    elem.uuid === event.currentTarget.value,
+                            );
 
-                        if (format) {
-                            setSelectedScanFormat(format);
-                        }
-                    }}
-                    items={device.scan_formats.map((format) => {
-                        return {
-                            name: format.name,
-                            value: format.uuid,
-                        };
-                    })}
-                />
-                <Select
-                    className={classes["resolution-selection"]}
-                    onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                        const resolution = device.resolutions.find(
-                            (elem) =>
-                                elem === Number(event.currentTarget.value),
-                        );
+                            if (format) {
+                                setSelectedScanFormat(format);
+                            }
+                        }}
+                        items={device.scan_formats.map((format) => {
+                            return {
+                                name: format.name,
+                                value: format.uuid,
+                            };
+                        })}
+                    />
+                    <Select
+                        className={classes["resolution-selection"]}
+                        onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                            const resolution = device.resolutions.find(
+                                (elem) =>
+                                    elem === Number(event.currentTarget.value),
+                            );
 
-                        if (resolution) {
-                            setSelectedResolution(resolution);
-                        }
-                    }}
-                    items={device.resolutions.map((resolution) => {
-                        return {
-                            name: String(resolution),
-                            value: resolution,
-                        };
-                    })}
-                />
+                            if (resolution) {
+                                setSelectedResolution(resolution);
+                            }
+                        }}
+                        items={device.resolutions.map((resolution) => {
+                            return {
+                                name: String(resolution),
+                                value: resolution,
+                            };
+                        })}
+                    />
+                </div>
+                <div className={classes.row}>
+                    <TextInput
+                        fullWidth
+                        value={fileName}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                            setFileName(event.target.value);
+                        }}
+                        placeholder="File name"
+                    />
+                </div>
             </div>
         )
     );

@@ -36,7 +36,7 @@ export default function Scanning() {
     const startScan = useCallback(() => {
         if (scanOptions && selectedDevice) {
             const parameters: ScanProcessParameters = {
-                file_name: "",
+                file_name: scanOptions.fileName,
                 resolution: scanOptions.resolution,
                 extension: scanOptions.extension,
             };
