@@ -15,7 +15,7 @@ const actions = [
         icon: <HomeIcon />,
     },
     {
-        location: "/scan",
+        location: "/scanning",
         icon: <ScanIcon />,
     },
 ];
