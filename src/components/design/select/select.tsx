@@ -15,12 +15,17 @@ interface SelectProps {
 export default function Select({
     items,
     fullWidth,
-    ...props
+    className,
+    ...otherProps
 }: SelectProps & SelectHTMLAttributes<HTMLSelectElement>) {
     return (
         <select
-            className={clsx(classes.select, fullWidth && classes["full-width"])}
-            {...props}
+            className={clsx(
+                className,
+                classes.select,
+                fullWidth && classes["full-width"],
+            )}
+            {...otherProps}
         >
             {items.map((item) => {
                 return (
