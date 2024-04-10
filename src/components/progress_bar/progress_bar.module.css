@@ -1,0 +1,13 @@
+.progress-bar {
+    display: flex;
+    height: 20px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--background2);
+}
+
+.inner-bar {
+    display: flex;
+    background-color: var(--background2-active);
+    border-radius: 10px;
+}
