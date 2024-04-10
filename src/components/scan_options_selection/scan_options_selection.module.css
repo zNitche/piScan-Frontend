@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.format-selection {
+    width: 30%;
+}
+
+.resolution-selection {
+    width: 70%;
+}
