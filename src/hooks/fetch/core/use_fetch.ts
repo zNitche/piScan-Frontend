@@ -7,7 +7,7 @@ interface Results<InputDataType, ResponseDataType> {
     fetchData: (
         data: InputDataType,
         spareURL?: string,
-    ) => Promise<ApiResponse<ResponseDataType | null> | undefined>;
+    ) => Promise<ApiResponse<ResponseDataType | undefined> | undefined>;
 }
 
 export default function useFetch<InputDataType, ResponseDataType>(
