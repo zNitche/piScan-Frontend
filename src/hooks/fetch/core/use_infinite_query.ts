@@ -73,7 +73,9 @@ export default function useInfiniteQuery<ResponseDataType>({
 
         if (resData !== undefined) {
             setData(resData);
-        } else {
+        }
+
+        if (resData === undefined || resData.length === 0) {
             setHasNext(false);
         }
     }, [itemsPerPage, fetchData]);
