@@ -11,10 +11,13 @@ import ProgressBar from "@/components/progress_bar/progress_bar";
 import Button from "@/components/design/button/button";
 import useStartScanProcess from "@/hooks/fetch/use_start_scan_process";
 import ScanProcessParameters from "@/types/api/scan_process_parameters";
+import useNotifications from "@/hooks/use_notifications";
 
 export default function Scanning() {
     const [selectedDevice, setSelectedDevice] = useState<Device | undefined>();
     const [scanOptions, setScanOptions] = useState<ScanOptions | undefined>();
+
+    const { addSuccessNotification, addErrorNotification } = useNotifications();
 
     const {
         isLoading: isLoadingDevices,
@@ -33,7 +36,7 @@ export default function Scanning() {
         }
     }, [devices]);
 
-    const startScan = useCallback(() => {
+    const startScan = useCallback(async () => {
         if (scanOptions && selectedDevice) {
             const parameters: ScanProcessParameters = {
                 file_name: scanOptions.fileName,
@@ -41,7 +44,21 @@ export default function Scanning() {
                 extension: scanOptions.extension,
             };
 
-            startScanProcess(parameters, selectedDevice.uuid);
+            const res = await startScanProcess(parameters, selectedDevice.uuid);
+
+            if (res.success) {
+                addSuccessNotification(
+                    "Scan process has been completed successfully",
+                );
+            } else {
+                let error = "";
+
+                if (res.data !== undefined && res.data.error) {
+                    error = `(${res.data.error})`;
+                }
+
+                addErrorNotification(`Error while performing scan ${error}`);
+            }
         }
     }, [scanOptions, selectedDevice]);
 
@@ -79,12 +96,11 @@ export default function Scanning() {
                         />
                     </div>
                     <div className={classes["scan-progress-wrapper"]}>
-                        {errorWhileLoadingScanProgress && (
+                        {errorWhileLoadingScanProgress ? (
                             <div className={classes.error}>
                                 Error while loading scan progress
                             </div>
-                        )}
-                        {scanProgress && scanProgress.is_running ? (
+                        ) : scanProgress && scanProgress.is_running ? (
                             <ProgressBar progress={scanProgress.progress} />
                         ) : (
                             <Button
