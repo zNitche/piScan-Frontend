@@ -71,7 +71,7 @@ export default function useInfiniteQuery<ResponseDataType>({
 
         const resData = await fetchData(params);
 
-        if (resData !== undefined && resData.length > 0) {
+        if (resData !== undefined) {
             setData(resData);
         } else {
             setHasNext(false);
