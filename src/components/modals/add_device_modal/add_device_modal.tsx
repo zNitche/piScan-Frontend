@@ -47,8 +47,10 @@ export default function AddDeviceModal({
     const handleAddNewDevice = useCallback(
         async (device: ConnectedDevice) => {
             if (!addingDevice) {
+                const deviceName = device.name.substring(0, 20);
+
                 const res = await addDevice({
-                    name: device.name,
+                    name: deviceName,
                     device_id: device.device_id,
                 });
 
