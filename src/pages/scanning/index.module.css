@@ -16,6 +16,11 @@
     justify-content: center;
     font-weight: 500;
     font-size: var(--font-xl);
+    gap: 5px;
+}
+
+.error a {
+    text-decoration: none;
 }
 
 .content {

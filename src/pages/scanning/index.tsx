@@ -12,6 +12,7 @@ import Button from "@/components/design/button/button";
 import useStartScanProcess from "@/hooks/fetch/use_start_scan_process";
 import ScanProcessParameters from "@/types/api/scan_process_parameters";
 import useNotifications from "@/hooks/use_notifications";
+import { Link } from "wouter";
 
 export default function Scanning() {
     const [selectedDevice, setSelectedDevice] = useState<Device | undefined>();
@@ -70,7 +71,7 @@ export default function Scanning() {
                 </div>
             )}
             {!errorWhileLoadingDevices && isLoadingDevices && <Loader />}
-            {!isLoadingDevices && devices && devices.length > 0 && (
+            {!isLoadingDevices && devices && devices.length > 0 ? (
                 <div className={classes["inner-wrapper"]}>
                     <div className={classes.content}>
                         <Select
@@ -112,6 +113,10 @@ export default function Scanning() {
                             </Button>
                         )}
                     </div>
+                </div>
+            ) : (
+                <div className={classes.error}>
+                    No <Link to="/devices">devices</Link> to perform scan
                 </div>
             )}
         </div>
