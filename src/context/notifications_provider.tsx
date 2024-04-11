@@ -3,6 +3,7 @@ import NotificationTypeEnum from "@/types/enums/notifications_type_enum";
 import NotificationItem from "@/types/notification_item";
 import { ReactElement, useCallback, useMemo, useState } from "react";
 import { NotificationsContext } from ".";
+import generateUUID from "@/utils/crypto";
 
 interface NotificationsProviderProps {
     children: ReactElement;
@@ -16,7 +17,7 @@ export default function NotificationsProvider({
     const addNotification = useCallback(
         (message: string, expiration: number, type: NotificationTypeEnum) => {
             const notification = {
-                id: crypto.randomUUID(),
+                id: generateUUID(),
                 message: message,
                 expiration: expiration,
                 type: type ? type : NotificationTypeEnum.Success,
