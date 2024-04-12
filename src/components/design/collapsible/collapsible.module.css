@@ -1,0 +1,36 @@
+.collapsible-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header {
+    display: flex;
+    font-size: var(--font-md);
+    background-color: var(--background);
+    color: var(--white);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.expand-more {
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.expand-more.open {
+    transform: rotate(-180deg);
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+}
