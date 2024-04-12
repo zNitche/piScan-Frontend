@@ -26,6 +26,7 @@
     color: var(--font-light);
     position: absolute;
     width: 600px;
+    max-height: 70%;
     background-color: var(--background2);
     font-size: var(--font-md);
     z-index: 101;
@@ -47,7 +48,13 @@
 }
 
 .content {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
 }
 
 .close-icon {
