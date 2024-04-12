@@ -33,6 +33,15 @@
     font-weight: 500;
 }
 
+.content-row.horizontal {
+    flex-direction: row;
+    align-items: center;
+}
+
+.action-element {
+    cursor: pointer;
+}
+
 .scan-formats-management {
     padding: 15px 0;
 }

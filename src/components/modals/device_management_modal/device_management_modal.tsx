@@ -21,6 +21,9 @@ import ScanFormatsManagementModal from "../scan_formats_management_modal/scan_fo
 import DeviceScanFormatsManagementModal from "../device_scan_formats_management_modal/device_scan_formats_management_modal";
 import useSelectedDevice from "@/hooks/use_selected_device";
 import useGetScanFormatsForDevice from "@/hooks/fetch/use_get_scan_formats_for_device";
+import OptionsIcon from "@/icons/options";
+import clsx from "@/utils/clsx";
+import DeviceOptionseModal from "../device_options_modal/device_options_modal";
 
 interface DeviceManagementModalProps {
     isOpen: boolean;
@@ -47,6 +50,8 @@ export default function DeviceManagementModal({
         isDeviceScanFormatsManagementModalOpen,
         setIsDeviceScanFormatsManagementModalOpen,
     ] = useState(false);
+    const [isDeviceOptionsModalOpen, setIsDeviceOptionsModalOpen] =
+        useState(false);
 
     const [deviceAvailable, setDeviceAvailable] = useState(false);
     const [deviceName, setDeviceName] = useState(device ? device.name : "");
@@ -172,6 +177,11 @@ export default function DeviceManagementModal({
                     refetchScanFormatsForDevice
                 }
             />
+            <DeviceOptionseModal
+                setIsOpen={setIsDeviceOptionsModalOpen}
+                isOpen={isDeviceOptionsModalOpen}
+                inAnotherModal={true}
+            />
             <Modal
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -204,6 +214,19 @@ export default function DeviceManagementModal({
                                     }}
                                     placeholder="200,300 etc"
                                 />
+                            </div>
+                            <div
+                                className={clsx(
+                                    classes["content-row"],
+                                    classes.horizontal,
+                                    classes["action-element"],
+                                )}
+                                onClick={() => {
+                                    setIsDeviceOptionsModalOpen(true);
+                                }}
+                            >
+                                <OptionsIcon />
+                                <span>Device options</span>
                             </div>
                             <div className={classes["scan-formats-management"]}>
                                 <DeviceScanFormatsManagement
