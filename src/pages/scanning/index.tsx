@@ -71,54 +71,61 @@ export default function Scanning() {
                 </div>
             )}
             {!errorWhileLoadingDevices && isLoadingDevices && <Loader />}
-            {!isLoadingDevices && devices && devices.length > 0 ? (
-                <div className={classes["inner-wrapper"]}>
-                    <div className={classes.content}>
-                        <Select
-                            fullWidth
-                            onChange={(
-                                event: ChangeEvent<HTMLSelectElement>,
-                            ) => {
-                                const device = devices.find(
-                                    (d) => d.uuid === event.currentTarget.value,
-                                );
-                                setSelectedDevice(device);
-                            }}
-                            items={devices.map((device) => {
-                                return {
-                                    name: device.name,
-                                    value: device.uuid,
-                                };
-                            })}
-                        />
-                        <ScanOptionsSelection
-                            device={selectedDevice}
-                            setScanOptions={setScanOptions}
-                        />
+            {!errorWhileLoadingDevices &&
+                (devices === undefined || devices.length === 0) && (
+                    <div className={classes.error}>
+                        No <Link to="/devices">devices</Link> to perform scan
                     </div>
-                    <div className={classes["scan-progress-wrapper"]}>
-                        {errorWhileLoadingScanProgress ? (
-                            <div className={classes.error}>
-                                Error while loading scan progress
-                            </div>
-                        ) : scanProgress && scanProgress.is_running ? (
-                            <ProgressBar progress={scanProgress.progress} />
-                        ) : (
-                            <Button
-                                disabled={isStartingScanProgress}
+                )}
+            {!errorWhileLoadingDevices &&
+                !isLoadingDevices &&
+                devices &&
+                devices.length > 0 && (
+                    <div className={classes["inner-wrapper"]}>
+                        <div className={classes.content}>
+                            <Select
                                 fullWidth
-                                onClick={startScan}
-                            >
-                                Scan
-                            </Button>
-                        )}
+                                onChange={(
+                                    event: ChangeEvent<HTMLSelectElement>,
+                                ) => {
+                                    const device = devices.find(
+                                        (d) =>
+                                            d.uuid ===
+                                            event.currentTarget.value,
+                                    );
+                                    setSelectedDevice(device);
+                                }}
+                                items={devices.map((device) => {
+                                    return {
+                                        name: device.name,
+                                        value: device.uuid,
+                                    };
+                                })}
+                            />
+                            <ScanOptionsSelection
+                                device={selectedDevice}
+                                setScanOptions={setScanOptions}
+                            />
+                        </div>
+                        <div className={classes["scan-progress-wrapper"]}>
+                            {errorWhileLoadingScanProgress ? (
+                                <div className={classes.error}>
+                                    Error while loading scan progress
+                                </div>
+                            ) : scanProgress && scanProgress.is_running ? (
+                                <ProgressBar progress={scanProgress.progress} />
+                            ) : (
+                                <Button
+                                    disabled={isStartingScanProgress}
+                                    fullWidth
+                                    onClick={startScan}
+                                >
+                                    Scan
+                                </Button>
+                            )}
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <div className={classes.error}>
-                    No <Link to="/devices">devices</Link> to perform scan
-                </div>
-            )}
+                )}
         </div>
     );
 }
