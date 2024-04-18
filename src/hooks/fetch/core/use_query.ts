@@ -31,14 +31,18 @@ export default function useQuery<ResponseDataType>({
     const [isError, setIsError] = useState(false);
     const [data, setData] = useState<ResponseDataType | undefined>(undefined);
 
-    // I'm not convinced this is good approach but for now it works
-    const [fetchesCount, setFetchesCount] = useState(0);
-    const periodicRefetchTimer = useRef<NodeJS.Timeout | null>(null);
+    const isEnabledRef = useRef(isEnabled);
+    const searchParamsRef = useRef(searchParams);
+    const urlRef = useRef(url);
+
+    isEnabledRef.current = isEnabled;
+    urlRef.current = url;
+    searchParamsRef.current = searchParams;
+
+    const periodicRefetchIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const fetchData = useCallback(async () => {
-        setFetchesCount(fetchesCount + 1);
-
-        if (!isEnabled) {
+        if (!isEnabledRef.current) {
             return;
         }
 
@@ -46,7 +50,10 @@ export default function useQuery<ResponseDataType>({
         setIsError(false);
 
         try {
-            const resData = await getData<ResponseDataType>(url, searchParams);
+            const resData = await getData<ResponseDataType>(
+                urlRef.current,
+                searchParamsRef.current,
+            );
 
             setData(resData);
         } catch (error) {
@@ -55,7 +62,15 @@ export default function useQuery<ResponseDataType>({
         }
 
         setIsLoading(false);
-    }, [url, isLoading, isEnabled, searchParams]);
+    }, [
+        url,
+        urlRef,
+        isLoading,
+        isEnabled,
+        isEnabledRef,
+        searchParams,
+        searchParamsRef,
+    ]);
 
     useEffect(() => {
         if (fetchOnMount && !(queryDependencyParams.length > 0)) {
@@ -64,20 +79,19 @@ export default function useQuery<ResponseDataType>({
     }, []);
 
     useEffect(() => {
-        if (queryDependencyParams.length > 0) {
+        if (queryDependencyParams.length > 0 && data !== undefined) {
             void fetchData();
         }
     }, queryDependencyParams);
 
     useEffect(() => {
         if (refetchInterval) {
-            periodicRefetchTimer.current = setTimeout(
-                fetchData,
-                refetchInterval,
-            );
+            periodicRefetchIntervalRef.current = setInterval(() => {
+                fetchData();
+            }, refetchInterval);
         }
-        return () => clearTimeout(periodicRefetchTimer.current || 0);
-    }, [fetchesCount]);
+        return () => clearInterval(periodicRefetchIntervalRef.current || 0);
+    }, []);
 
     return { isLoading, isError, refetch: fetchData, data };
 }
