@@ -12,10 +12,10 @@ Web UI for [piScan](https://github.com/zNitche/piScan) system.
 - nginx
 
 ### Features
-- Scanning devices (scanners / pronters) management
+- Scanning devices (scanners / printers) management
 - Inifinite scroll for files preview + search support
 - Starting + monitoring scanning processes
-- Intefgrated with eslint and prettier
+- Integrated with eslint and prettier
 
 ### Setup
 #### Dev
@@ -35,7 +35,7 @@ npm i
 ```
 npm run dev
 ```
-#### Prod
+#### Production
 1. Create `.env` file
 ```
 cp .env.template .env
